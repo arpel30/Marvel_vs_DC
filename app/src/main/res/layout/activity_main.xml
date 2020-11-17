@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_tekken1"
+    android:orientation="horizontal"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/main_LAY_left"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_weight="1">
+
+
+        <ImageView
+            android:id="@+id/main_IMG_leftPlayer"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/dc_flash" />
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/main_LBL_leftScore"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="100"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-black"
+            android:textSize="70dp" />
+        <TextView
+            android:gravity="center"
+            android:id="@+id/main_LBL_leftName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/main_IMG_leftPlayer"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text=""
+            android:textColor="#FFFFFF"
+            android:textSize="30dp"
+            android:fontFamily="sans-serif-black"/>
+
+        <ProgressBar
+            android:id="@+id/main_PRB_left"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_below="@id/main_LBL_leftScore"
+            android:layout_above="@id/main_IMG_leftPlayer"
+
+            android:progress="100"
+            />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3">
+
+
+        <ImageView
+            android:id="@+id/main_IMG_button"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/shield"
+            android:layout_marginBottom="0dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            />
+
+        <ImageView
+            android:id="@+id/main_IMG_rightCard"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+
+            android:src="@drawable/poker_flipped" />
+
+        <ImageView
+            android:id="@+id/main_IMG_letfCard"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/poker_flipped" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/main_LAY_right"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_weight="1">
+
+
+        <ImageView
+            android:id="@+id/main_IMG_rightPlayer"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ironman" />
+
+        <TextView
+            android:layout_alignParentTop="true"
+            android:id="@+id/main_LBL_rightScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="100"
+            android:layout_centerHorizontal="true"
+            android:textColor="#FFFFFF"
+            android:textSize="70dp"
+            android:fontFamily="sans-serif-black"/>
+        <TextView
+            android:gravity="center"
+            android:id="@+id/main_LBL_rightName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/main_IMG_rightPlayer"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Iron Man"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp"
+            android:fontFamily="sans-serif-black"/>
+        <ProgressBar
+            android:id="@+id/main_PRB_right"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_below="@id/main_LBL_rightScore"
+            android:layout_above="@id/main_IMG_rightPlayer"
+
+            android:progress="100"
+            />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
