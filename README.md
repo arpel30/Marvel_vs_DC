@@ -13,3 +13,30 @@ Card war game between Marvel & DC characters.
 
 ### After game :
 ![Screenshot_20201119-203316_Marvel Vs DC](https://user-images.githubusercontent.com/48724924/99709418-d36d6900-2aa7-11eb-9d55-79c903838a77.jpg)
+
+---
+
+## Characters :
+
+#### **Marvel** :
+- Hulk 
+- Captain America
+- Ironman
+- Thor
+- Spiderman
+- Groot
+- Deadpool
+- Black Panther
+- Black Widow
+- Wolverine
+#### **DC** :
+- Flash
+- Batman
+- Green Arrow
+- Green Lantern
+- Gal Gadot
+- Superman
+- Batwoman
+- Super woman
+- Cyborg
+- Darth Vader
