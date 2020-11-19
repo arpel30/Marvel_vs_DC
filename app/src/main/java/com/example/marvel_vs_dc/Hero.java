@@ -5,7 +5,7 @@ import android.util.Log;
 public class Hero {
 
     private int luckNumber;
-    private int luckColor; // by the team
+    private int luckColor; // By the team (Dc/Marvel)
     private int hp;
     private int id;
     private String name;
@@ -19,20 +19,21 @@ public class Hero {
     }
 
     public int hit(int val, int rand, int color){
-        if(val == 1){
+        // Returns the player hit power (according to card & random number)
+        if(val == 1){ // Ace = random
             val = rand;
         }
-        if(val == this.luckNumber){
+        if(val == this.luckNumber){ // Luck number - Life Bonus
             this.hp+=5;
-//            Log.d("aaaaa", this.name + ":" + val + ":" + luckNumber);
         }
-        if(color == this.luckColor){
+        if(color == this.luckColor){ // Luck color - 2*HitPower
             val *= 2;
         }
-//        Log.d("aaaaa", this.name + ":" + val);
         return val;
     }
 
+
+    // Getters & Setters
     public void setHp(int hp) {
         this.hp = hp;
     }

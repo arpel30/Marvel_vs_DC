@@ -7,14 +7,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
 
@@ -38,9 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView deal;
 
-//    private Button deal;
-
-    private Hero[] heros;
+    private Hero[] heroes;
     Hero leftHero;
     Hero rightHero;
 
@@ -54,10 +49,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Full screen, no buttons bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         this.getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -67,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         setContentView(R.layout.activity_main);
 
+        // Init arraylist of cards, heroes & views
         initHeroes();
         initDeck();
         initViews();
@@ -74,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         deal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setViews(savedInstanceState);
+                Deal(savedInstanceState);
             }
         });
 
@@ -84,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        // Full screen & hide bars
         super.onResume();
         this.getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -95,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void round_over(Bundle savedInstanceState, Hero lost, Hero won) {
-        Log.d("aaaaa", "Saved");
+        // save params & open next activity
+        // if tie - winner.hp = 0, so we will give him 1 point
         if (won.getHp() <= 0)
             won.setHp(1);
         Intent intent = new Intent(MainActivity.this, Winner_Activity.class);
@@ -107,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initDeck() {
+        // init deck & Shuffle
         this.deck = new ArrayList<Card>();
         String[] sym = {"diamonds", "clubs", "hearts", "spades"};
         String uri = "@drawable/poker_";
@@ -121,31 +118,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initHeroes() {
+        // Hard Coded heroes
         // Marvel = 0, DC = 1
-        this.heros = new Hero[20];
-        heros[0] = new Hero(7, 0, getResources().getIdentifier("@drawable/ironman", null, getPackageName()), "Ironman");
-        heros[1] = new Hero(7, 0, getResources().getIdentifier("@drawable/thor", null, getPackageName()), "Thor");
-        heros[2] = new Hero(7, 0, getResources().getIdentifier("@drawable/spiderman", null, getPackageName()), "Spiderman");
-        heros[3] = new Hero(7, 0, getResources().getIdentifier("@drawable/groot", null, getPackageName()), "Groot");
-        heros[4] = new Hero(7, 0, getResources().getIdentifier("@drawable/hulk", null, getPackageName()), "Hulk");
-        heros[5] = new Hero(7, 0, getResources().getIdentifier("@drawable/deadpool", null, getPackageName()), "Deadpool");
-        heros[6] = new Hero(7, 0, getResources().getIdentifier("@drawable/black_pant", null, getPackageName()), "Black Panther");
-        heros[7] = new Hero(7, 0, getResources().getIdentifier("@drawable/black_widow", null, getPackageName()), "Black Widow");
-        heros[8] = new Hero(7, 0, getResources().getIdentifier("@drawable/cap_america", null, getPackageName()), "Captain America");
-        heros[9] = new Hero(7, 0, getResources().getIdentifier("@drawable/wolverine", null, getPackageName()), "Wolverine");
-        heros[10] = new Hero(7, 1, getResources().getIdentifier("@drawable/dc_flash", null, getPackageName()), "Flash");
-        heros[11] = new Hero(7, 1, getResources().getIdentifier("@drawable/dc_batman", null, getPackageName()), "Batman");
-        heros[12] = new Hero(7, 1, getResources().getIdentifier("@drawable/dc_green_arrow", null, getPackageName()), "Green Arrow");
-        heros[13] = new Hero(7, 1, getResources().getIdentifier("@drawable/dc_green_lant", null, getPackageName()), "Green Lantern");
-        heros[14] = new Hero(7, 1, getResources().getIdentifier("@drawable/dc_gal_gadot", null, getPackageName()), "Gal Gadot");
-        heros[15] = new Hero(7, 1, getResources().getIdentifier("@drawable/dc_superman", null, getPackageName()), "Superman");
-        heros[16] = new Hero(7, 1, getResources().getIdentifier("@drawable/darth", null, getPackageName()), "Darth Vader");
-        heros[17] = new Hero(7, 1, getResources().getIdentifier("@drawable/batwoman", null, getPackageName()), "Batwoman");
-        heros[18] = new Hero(7, 1, getResources().getIdentifier("@drawable/superwoman", null, getPackageName()), "Super woman");
-        heros[19] = new Hero(7, 1, getResources().getIdentifier("@drawable/cyborg", null, getPackageName()), "Cyborg");
+        this.heroes = new Hero[20];
+        heroes[0] = new Hero(7, 0, getResources().getIdentifier("@drawable/ironman", null, getPackageName()), "Ironman");
+        heroes[1] = new Hero(2, 0, getResources().getIdentifier("@drawable/thor", null, getPackageName()), "Thor");
+        heroes[2] = new Hero(5, 0, getResources().getIdentifier("@drawable/spiderman", null, getPackageName()), "Spiderman");
+        heroes[3] = new Hero(10, 0, getResources().getIdentifier("@drawable/groot", null, getPackageName()), "Groot");
+        heroes[4] = new Hero(13, 0, getResources().getIdentifier("@drawable/hulk", null, getPackageName()), "Hulk");
+        heroes[5] = new Hero(11, 0, getResources().getIdentifier("@drawable/deadpool", null, getPackageName()), "Deadpool");
+        heroes[6] = new Hero(6, 0, getResources().getIdentifier("@drawable/black_pant", null, getPackageName()), "Black Panther");
+        heroes[7] = new Hero(2, 0, getResources().getIdentifier("@drawable/black_widow", null, getPackageName()), "Black Widow");
+        heroes[8] = new Hero(3, 0, getResources().getIdentifier("@drawable/cap_america", null, getPackageName()), "Captain America");
+        heroes[9] = new Hero(11, 0, getResources().getIdentifier("@drawable/wolverine", null, getPackageName()), "Wolverine");
+        heroes[10] = new Hero(12, 1, getResources().getIdentifier("@drawable/dc_flash", null, getPackageName()), "Flash");
+        heroes[11] = new Hero(4, 1, getResources().getIdentifier("@drawable/dc_batman", null, getPackageName()), "Batman");
+        heroes[12] = new Hero(5, 1, getResources().getIdentifier("@drawable/dc_green_arrow", null, getPackageName()), "Green Arrow");
+        heroes[13] = new Hero(10, 1, getResources().getIdentifier("@drawable/dc_green_lant", null, getPackageName()), "Green Lantern");
+        heroes[14] = new Hero(9, 1, getResources().getIdentifier("@drawable/dc_gal_gadot", null, getPackageName()), "Gal Gadot");
+        heroes[15] = new Hero(8, 1, getResources().getIdentifier("@drawable/dc_superman", null, getPackageName()), "Superman");
+        heroes[16] = new Hero(6, 1, getResources().getIdentifier("@drawable/darth", null, getPackageName()), "Darth Vader");
+        heroes[17] = new Hero(7, 1, getResources().getIdentifier("@drawable/batwoman", null, getPackageName()), "Batwoman");
+        heroes[18] = new Hero(8, 1, getResources().getIdentifier("@drawable/superwoman", null, getPackageName()), "Super woman");
+        heroes[19] = new Hero(7, 1, getResources().getIdentifier("@drawable/cyborg", null, getPackageName()), "Cyborg");
     }
 
     private void initViews() {
+        // Find & init all views
         leftPlayer = findViewById(R.id.main_IMG_leftPlayer);
         leftScore = findViewById(R.id.main_LBL_leftScore);
         leftName = findViewById(R.id.main_LBL_leftName);
@@ -160,8 +159,8 @@ public class MainActivity extends AppCompatActivity {
         leftProg = findViewById(R.id.main_PRB_left);
         rightProg = findViewById(R.id.main_PRB_right);
 
-        leftHero = heros[rand.nextInt(num_marvel) + num_dc];
-        rightHero = heros[rand.nextInt(num_marvel)];
+        leftHero = heroes[rand.nextInt(num_marvel) + num_dc];
+        rightHero = heroes[rand.nextInt(num_marvel)];
         rightName.setText(rightHero.getName());
         leftName.setText(leftHero.getName());
 
@@ -173,14 +172,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setViews(Bundle savedInstanceState) {
-
-        //leftScore.setText(100 + "");
-//        int l_id = getResources().getIdentifier("@drawable/poker_clubs11", null, getPackageName());
-//        int r_id = getResources().getIdentifier("@drawable/poker_hearts1", null, getPackageName());
-//        if(gameover){
-//            round_over(savedInstanceState, rightHero, leftHero);
-//        }
+    private void Deal(Bundle savedInstanceState) {
+        // Deal next cards & hit
         Card c = this.deck.remove(0);
         leftCard.setImageResource(c.getId());
         rightHero.setHp(rightHero.getHp() - leftHero.hit(c.getValue(), rand.nextInt(13), c.getColor()));
@@ -191,10 +184,6 @@ public class MainActivity extends AppCompatActivity {
 
         rightScore.setText(rightHero.getHp() + "");
         leftScore.setText(leftHero.getHp() + "");
-//        Log.d("aaaaa", "---------------------------------------------");
-//        Log.d("aaaaa", leftHero.getName() + ":" + leftHero.getHp());
-//        Log.d("aaaaa", rightHero.getName() + ":" + rightHero.getHp());
-//        Log.d("aaaaa", "---------------------------------------------");
 
         leftProg.setProgress(leftHero.getHp());
         rightProg.setProgress(rightHero.getHp());
@@ -205,18 +194,14 @@ public class MainActivity extends AppCompatActivity {
                 rightScore.setText(rightHero.getHp() + "");
                 leftHero.setHp(0);
                 leftScore.setText(0 + "");
-//            gameover = true;
                 round_over(savedInstanceState, leftHero, rightHero);
             } else if (leftHero.getHp() >= rightHero.getHp()) {
                 leftHero.setHp(leftHero.getHp() - rightHero.getHp());
                 leftScore.setText(leftHero.getHp() + "");
                 rightHero.setHp(0);
                 rightScore.setText(0 + "");
-//            gameover = true;
                 round_over(savedInstanceState, rightHero, leftHero);
             }
         }
-//        Log.d("aaaaa", leftHero.getName() + ":" + leftHero.getHp());
-//        Log.d("aaaaa", rightHero.getName() + ":" + rightHero.getHp());
     }
 }

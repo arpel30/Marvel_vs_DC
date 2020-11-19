@@ -21,6 +21,7 @@ public class Winner_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Full screen, no buttons bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -30,7 +31,6 @@ public class Winner_Activity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         setContentView(R.layout.activity_winner_);
-        Log.d("aaaaa", "Im here");
         findViews();
         initViews(savedInstanceState);
     }
@@ -38,6 +38,7 @@ public class Winner_Activity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        // Full screen & hide bars
         super.onResume();
         this.getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -49,6 +50,7 @@ public class Winner_Activity extends AppCompatActivity {
     }
 
     private void initViews(Bundle savedInstanceState) {
+        // Init views
         int score_val = getIntent().getIntExtra(MainActivity.SCORE_KEY, 0);
         int id = getIntent().getIntExtra(MainActivity.ID_KEY, 0);
         String name_val = getIntent().getStringExtra(MainActivity.NAME_KEY);
@@ -67,6 +69,7 @@ public class Winner_Activity extends AppCompatActivity {
     }
 
     private void findViews() {
+        // Finding views
         hero = findViewById(R.id.win_IMG_Player);
         score = findViewById(R.id.win_LBL_Score);
         name = findViewById(R.id.win_LBL_Name);
