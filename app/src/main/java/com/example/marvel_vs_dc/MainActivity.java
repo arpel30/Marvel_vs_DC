@@ -160,8 +160,8 @@ public class MainActivity extends AppCompatActivity {
         leftProg = findViewById(R.id.main_PRB_left);
         rightProg = findViewById(R.id.main_PRB_right);
 
-        leftHero = heros[rand.nextInt(num_marvel)];
-        rightHero = heros[rand.nextInt(num_marvel) + num_dc];
+        leftHero = heros[rand.nextInt(num_marvel) + num_dc];
+        rightHero = heros[rand.nextInt(num_marvel)];
         rightName.setText(rightHero.getName());
         leftName.setText(leftHero.getName());
 
