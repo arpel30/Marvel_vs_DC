@@ -3,6 +3,11 @@
 Card war game between Marvel & DC characters.
 <br/>There are 20 different characters in the game.
 
+### Game Play :
+Each character has her own health points, luck number & luck color.
+<br/>In each round each character gets a random card which it's value and color determines the character's hit power.
+<br/>First one to reach 0 health points loses, the winner's score is his final health points value.
+
 ## Here are some examples :
 
 ### Pre game :
