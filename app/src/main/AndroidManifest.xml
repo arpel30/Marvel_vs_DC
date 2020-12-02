@@ -8,14 +8,24 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Marvel_vs_DC"
-        >
-        <activity android:name=".Winner_Activity"
-            android:screenOrientation="landscape">></activity>
+        android:theme="@style/Theme.Marvel_vs_DC">
+        <activity android:name=".Activity_Choose_Character"
+            android:screenOrientation="landscape">
+
+        </activity>
         <activity
-            android:name=".MainActivity"
-            android:screenOrientation="landscape"
-           >
+            android:name=".Activity_Winner"
+            android:screenOrientation="landscape">
+
+        </activity>
+        <activity
+            android:name=".Activity_Game"
+            android:screenOrientation="landscape">
+
+        </activity>
+        <activity
+            android:name=".Activity_Main_Menu"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

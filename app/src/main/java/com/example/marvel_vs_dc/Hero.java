@@ -58,6 +58,14 @@ public class Hero {
         return name;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Hero{" +
+                "luckNumber=" + luckNumber +
+                ", luckColor=" + luckColor +
+                ", hp=" + hp +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

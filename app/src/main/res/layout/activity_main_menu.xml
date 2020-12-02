@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity_Main_Menu"
+    android:background="@drawable/bg_lightning"
+    >
+
+    <ImageView
+        android:id="@+id/menu_IMG_title"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/title_red"
+        android:layout_centerHorizontal="true"/>
+
+    <ImageView
+        android:id="@+id/menu_IMG_logo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/logo_aven"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_below="@+id/menu_IMG_title"
+        android:layout_above="@+id/menu_IMG_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true">
+
+        <Button
+            android:id="@+id/menu_BTN_auto"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Auto Play"
+            android:textSize="30dp"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="#404040"
+           android:textColor = "#FFFFFF"/>
+        <Button
+            android:id="@+id/menu_BTN_choose"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose Charachters"
+            android:textSize="30dp"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="#404040"
+            android:textColor = "#FFFFFF"
+            />
+        <Button
+            android:id="@+id/menu_BTN_top10"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="top 10"
+            android:textSize="30dp"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="#404040"
+            android:textColor = "#FFFFFF"/>
+        <Button
+            android:id="@+id/menu_BTN_settings"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="settings"
+            android:textSize="30dp"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="#404040"
+            android:textColor = "#FFFFFF"
+
+            />
+
+    </LinearLayout>
+</RelativeLayout>
