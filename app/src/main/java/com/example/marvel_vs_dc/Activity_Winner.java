@@ -15,6 +15,7 @@ public class Activity_Winner extends Activity_Base {
     private Button new_game;
     private Button top10;
     private Button menu;
+    private int mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class Activity_Winner extends Activity_Base {
         // Init views
         int score_val = getIntent().getIntExtra(Constants.SCORE_KEY, 0);
         int id = getIntent().getIntExtra(Constants.ID_KEY, 0);
+        mode = getIntent().getIntExtra(Constants.MODE, 0);
         String name_val = getIntent().getStringExtra(Constants.NAME_KEY);
 
         name.setText(name_val + " won !");
@@ -38,6 +40,7 @@ public class Activity_Winner extends Activity_Base {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Activity_Winner.this, Activity_Game.class);
+                intent.putExtra(Constants.MODE, mode);
                 startActivity(intent);
                 finish();
             }
@@ -47,6 +50,15 @@ public class Activity_Winner extends Activity_Base {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Activity_Winner.this, Activity_Main_Menu.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        top10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Activity_Winner.this, Activity_TopTen.class);
                 startActivity(intent);
                 finish();
             }

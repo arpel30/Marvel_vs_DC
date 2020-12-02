@@ -16,11 +16,15 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainViewController {
 
-    private final int mode;
+    private int mode;
     private AppCompatActivity activity;
+
+    private Bundle bundle;
 
     private ProgressBar leftProg;
     private ProgressBar rightProg;
@@ -48,22 +52,31 @@ public class MainViewController {
     private boolean gameover = false;
     private Random rand;
 
+    final int DELAY = 1000; // 2000ms = 2 second
+    final int FRACTION = 50; // 10ms - updating progress bar
+    private Timer autoGameTimer;
+    private ProgressBar cardLoad;
+    private int timeCount = 0;
     MediaPlayer player_bg;
 
     public MainViewController(AppCompatActivity activity) {
         this.activity = activity;
 
-        mode = activity.getIntent().getIntExtra(Constants.MODE, 0);
+        mode = activity.getIntent().getIntExtra(Constants.MODE, Constants.MODE_MANUAL);
 
 
 //        findViews(activity);
+    }
+
+    public void setBundle(Bundle bundle) {
+        this.bundle = bundle;
     }
 
     public void findViews(AppCompatActivity activity) {
 
     }
 
-    public void bgMusic(){
+    public void bgMusic() {
         MediaPlayer player_start = MediaPlayer.create(activity, R.raw.fight);
         player_start.start();
         player_bg = MediaPlayer.create(activity, R.raw.avengers_theme);
@@ -90,15 +103,17 @@ public class MainViewController {
     }
 
 
-    private void round_over(Bundle savedInstanceState, Hero lost, Hero won) {
+    private void round_over(Hero lost, Hero won) {
         // save params & open next activity
         // if tie - winner.hp = 0, so we will give him 1 point
+        gameover = true;
         if (won.getHp() <= 0)
             won.setHp(1);
         Intent intent = new Intent(activity, Activity_Winner.class);
         intent.putExtra(Constants.SCORE_KEY, won.getHp());
         intent.putExtra(Constants.ID_KEY, won.getId());
         intent.putExtra(Constants.NAME_KEY, won.getName());
+        intent.putExtra(Constants.MODE, mode);
         activity.startActivity(intent);
         activity.finish();
     }
@@ -145,7 +160,7 @@ public class MainViewController {
         return heroes;
     }
 
-    public void initViews(Bundle savedInstanceState) {
+    public void initViews() {
         // Find & init all views
         leftPlayer = activity.findViewById(R.id.main_IMG_leftPlayer);
         leftScore = activity.findViewById(R.id.main_LBL_leftScore);
@@ -159,18 +174,19 @@ public class MainViewController {
 
         leftProg = activity.findViewById(R.id.main_PRB_left);
         rightProg = activity.findViewById(R.id.main_PRB_right);
+        cardLoad = activity.findViewById(R.id.main_PRB_loadCard);
 
         this.rand = new Random();
 
         String leftFromMemory = activity.getIntent().getStringExtra(Constants.HEROE_SELECTED_L);
         String rightFromMemory = activity.getIntent().getStringExtra(Constants.HEROE_SELECTED_R);
 //        jsonFromMemory = null;
-        if(leftFromMemory != null && rightFromMemory != null) {
+        if (leftFromMemory != null && rightFromMemory != null) {
             Gson gson = new Gson();
             leftHero = gson.fromJson(leftFromMemory, Hero.class);
             rightHero = gson.fromJson(rightFromMemory, Hero.class);
-            Log.d("aaa", leftHero.toString() + ", " + rightHero.toString());
-        }else{
+//            Log.d("aaa", leftHero.toString() + ", " + rightHero.toString());
+        } else {
             leftHero = heroes[rand.nextInt(num_marvel) + num_dc];
             rightHero = heroes[rand.nextInt(num_marvel)];
         }
@@ -183,20 +199,65 @@ public class MainViewController {
         rightScore.setText(rightHero.getHp() + "");
         leftScore.setText(leftHero.getHp() + "");
 
-        deal.setOnClickListener(new View.OnClickListener() {
-            @Override
 
-            public void onClick(View v) {
-                playSound(Constants.FLIP_NAME);
-                Deal(savedInstanceState);
-            }
-
-        });
-
+        // handle button by mode selected
+        if (mode == Constants.MODE_AUTO) {
+            setAutoHandler();
+        } else {
+            setManualHandler();
+        }
     }
 
-    public void Deal(Bundle savedInstanceState) {
+    private void setManualHandler() {
+        deal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                playSound(Constants.FLIP_NAME);
+                Deal();
+            }
+        });
+    }
+
+    private void setAutoHandler() {
+        deal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deal.setVisibility(View.GONE);
+                cardLoad.setVisibility(View.VISIBLE);
+                startTimer();
+            }
+        });
+    }
+
+    private void startTimer() {
+        autoGameTimer = new Timer();
+        autoGameTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (gameover) {
+                            autoGameTimer.cancel();
+                        } else {
+                            if (timeCount >= DELAY) {
+                                timeCount = 0;
+                                Deal();
+                            }
+                                cardLoad.setProgress((timeCount * 100) / DELAY);
+                                timeCount += FRACTION;
+                            }
+
+                        }
+                });
+            }
+        }, 0, FRACTION);
+    }
+
+    public void Deal() {
         // Deal next cards & hit
+        playSound(Constants.FLIP_NAME);
+
         Card c = this.deck.remove(0);
         leftCard.setImageResource(c.getId());
         rightHero.setHp(rightHero.getHp() - leftHero.hit(c.getValue(), rand.nextInt(13), c.getColor()));
@@ -219,13 +280,13 @@ public class MainViewController {
                 rightScore.setText(rightHero.getHp() + "");
                 leftHero.setHp(0);
                 leftScore.setText(0 + "");
-                round_over(savedInstanceState, leftHero, rightHero);
+                round_over(leftHero, rightHero);
             } else if (leftHero.getHp() >= rightHero.getHp()) {
                 leftHero.setHp(leftHero.getHp() - rightHero.getHp());
                 leftScore.setText(leftHero.getHp() + "");
                 rightHero.setHp(0);
                 rightScore.setText(0 + "");
-                round_over(savedInstanceState, rightHero, leftHero);
+                round_over(rightHero, leftHero);
             }
         }
 

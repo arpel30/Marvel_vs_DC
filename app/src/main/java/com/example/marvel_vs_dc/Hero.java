@@ -10,6 +10,9 @@ public class Hero {
     private int id;
     private String name;
 
+    public Hero() {
+    }
+
     public Hero(int luckNumber, int luckColor, int id, String name) {
         this.luckNumber = luckNumber;
         this.luckColor = luckColor;

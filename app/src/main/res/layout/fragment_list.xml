@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFC107"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/list_LBL_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Top 10"
+        android:textSize="50dp"
+        android:textColor="#000000"
+        android:gravity="center"/>
+
+    <ScrollView
+        android:id="@+id/choose_HSV_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:id="@+id/choose_LAY_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Player : Arad\nCharacter : Thor\nScore : 24\nDate : 24/5/2010"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:autoSizeTextType="uniform"
+                    android:layout_toRightOf="@id/choose_IMG_exmp"
+                    android:gravity="left"
+                    />
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/thor"
+                    android:layout_margin="5dp"
+                    />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Player : Arad\nCharacter : Superman\nScore : 24\nDate : 24/5/2010"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:autoSizeTextType="uniform"
+                    android:layout_toRightOf="@id/choose_IMG_exmp"
+                    android:gravity="left"
+                    />
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/dc_superman"
+                    android:layout_margin="5dp"
+                    />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Player : Arad\nCharacter : black_pant\nScore : 24\nDate : 24/5/2010"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:autoSizeTextType="uniform"
+                    android:layout_toRightOf="@id/choose_IMG_exmp"
+                    android:gravity="left"
+                    />
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/black_pant"
+                    android:layout_margin="5dp"
+                    />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Player : Arad\nCharacter : Flash\nScore : 24\nDate : 24/5/2010"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:autoSizeTextType="uniform"
+                    android:layout_toRightOf="@id/choose_IMG_exmp"
+                    android:gravity="left"
+                    />
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/dc_flash"
+                    android:layout_margin="5dp"
+                    />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Player : Arad\nCharacter : Thor\nScore : 24\nDate : 24/5/2010"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:autoSizeTextType="uniform"
+                    android:layout_toRightOf="@id/choose_IMG_exmp"
+                    android:gravity="left"
+                    />
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/thor"
+                    android:layout_margin="5dp"
+                    />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Player : Moshe\nCharacter : Deadpool\nScore : 24\nDate : 24/5/2010"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:autoSizeTextType="uniform"
+                    android:layout_toRightOf="@id/choose_IMG_exmp"
+                    android:gravity="left"
+                    />
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/deadpool"
+                    android:layout_margin="5dp"
+                    />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Player : Arad\nCharacter : Thor\nScore : 24\nDate : 24/5/2010"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:autoSizeTextType="uniform"
+                    android:layout_toRightOf="@id/choose_IMG_exmp"
+                    android:gravity="left"
+                    />
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/thor"
+                    android:layout_margin="5dp"
+                    />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Player : Avi\nCharacter : Ironman\nScore : 24\nDate : 24/5/2010"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:autoSizeTextType="uniform"
+                    android:layout_toRightOf="@id/choose_IMG_exmp"
+                    android:gravity="left"
+                    />
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ironman"
+                    android:layout_margin="5dp"
+                    />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

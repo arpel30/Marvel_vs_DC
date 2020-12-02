@@ -23,7 +23,7 @@ public class Activity_Main_Menu extends Activity_Base {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Activity_Main_Menu.this, Activity_Game.class);
-                intent.putExtra(Constants.MODE, 1); // 1 for automatic
+                intent.putExtra(Constants.MODE, Constants.MODE_AUTO); // 1 for automatic
                 startActivity(intent);
                 finish();
             }
@@ -33,7 +33,16 @@ public class Activity_Main_Menu extends Activity_Base {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Activity_Main_Menu.this, Activity_Choose_Character.class);
-                intent.putExtra(Constants.MODE, 0); // 1 for automatic
+                intent.putExtra(Constants.MODE, Constants.MODE_MANUAL); // 0 for manual
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        top10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Activity_Main_Menu.this, Activity_TopTen.class);
                 startActivity(intent);
                 finish();
             }

@@ -9,7 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Marvel_vs_DC">
-        <activity android:name=".Activity_Choose_Character"
+        <activity
+            android:name=".Activity_TopTen"
+            android:screenOrientation="landscape">
+
+        </activity>
+        <activity
+            android:name=".Activity_Choose_Character"
             android:screenOrientation="landscape">
 
         </activity>

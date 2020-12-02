@@ -84,6 +84,7 @@
             android:layout_marginBottom="0dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:visibility="visible"
             />
 
         <ImageView
@@ -92,7 +93,6 @@
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-
             android:src="@drawable/poker_flipped" />
 
         <ImageView
@@ -102,6 +102,20 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/poker_flipped" />
+
+        <ProgressBar
+            android:id="@+id/main_PRB_loadCard"
+            android:progress="0"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="0dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"
+            android:indeterminateOnly="false"
+            android:progressDrawable="@drawable/circle"
+            />
+
 
 
     </RelativeLayout>

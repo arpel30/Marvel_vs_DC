@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -26,8 +28,13 @@ public class Activity_Choose_Character extends Activity_Base {
     private ImageView exmp;
     private ImageView button;
 
+    private RadioGroup chooseMode;
+    private RadioButton modeAuto;
+    private RadioButton modeManual;
+
     private static final int IMG_SIZE = 100;
     private MainViewController mainViewController;
+    private int mode = 0; // 0 - manual, 1 - auto
 
     Hero[] heroes;
     Hero right;
@@ -51,6 +58,7 @@ public class Activity_Choose_Character extends Activity_Base {
     }
 
     private void randomInit() {
+        // choose 2 random characters for start
         left = heroes[new Random().nextInt(10)+10];
         right = heroes[new Random().nextInt(10)];
 
@@ -62,6 +70,7 @@ public class Activity_Choose_Character extends Activity_Base {
     }
 
     private void initAll() {
+        // init all characters to be chosen from & listener
         for (int i = 0; i < heroes.length; i++) {
             ImageView iv = new ImageView(getApplicationContext());
             iv.setImageResource(heroes[i].getId());
@@ -75,7 +84,6 @@ public class Activity_Choose_Character extends Activity_Base {
                 buttonClicked();
             }
         });
-
     }
 
     private void setListener(ImageView iv, int i) {
@@ -120,11 +128,13 @@ public class Activity_Choose_Character extends Activity_Base {
         String jsonLeft = gson.toJson(left);
         String jsonRight = gson.toJson(right);
 
-        Log.d("aaa", jsonLeft + ", " + jsonRight);
+//        Log.d("aaa", jsonLeft + ", " + jsonRight);
 
         Intent intent = new Intent(this, Activity_Game.class);
         intent.putExtra(Constants.HEROE_SELECTED_L, jsonLeft);
         intent.putExtra(Constants.HEROE_SELECTED_R, jsonRight);
+        intent.putExtra(Constants.MODE, mode);
+
         this.startActivity(intent);
         this.finish();
 
@@ -143,5 +153,26 @@ public class Activity_Choose_Character extends Activity_Base {
 
         exmp = findViewById(R.id.choose_IMG_exmp);
         button = findViewById(R.id.choose_IMG_button);
+
+        chooseMode = findViewById(R.id.choose_RDG_mode);
+        modeAuto = findViewById(Constants.RDB_MODE_AUTO_ID);
+        modeManual = findViewById(Constants.RDB_MODE_MANUAL_ID);
+    }
+
+    public void onRadioButtonClicked(View view){
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case Constants.RDB_MODE_AUTO_ID:
+                if (checked)
+                    mode = 1;
+                    break;
+            case Constants.RDB_MODE_MANUAL_ID:
+                if (checked)
+                    mode = 0;
+                    break;
+        }
+//        Log.d("aaa", "Mode is " + mode);
     }
 }

@@ -82,7 +82,7 @@
 
 
         <RadioGroup
-            android:checkedButton="@+id/offer"
+            android:checkedButton="@+id/choose_RDG_mode"
             android:id="@+id/toggle"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -92,7 +92,7 @@
             android:layout_marginBottom="30dp">
 
             <RadioButton
-                android:id="@+id/search"
+                android:id="@+id/choose_RDB_manual"
                 android:background="@drawable/toggle_widget_background"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -101,13 +101,14 @@
                 android:gravity="center"
                 android:text="Manual"
                 android:textSize="20dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:onClick="onRadioButtonClicked"/>
 
             <RadioButton
                 android:layout_marginRight="1dp"
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="1dp"
-                android:id="@+id/offer"
+                android:id="@+id/choose_RDB_auto"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -116,7 +117,8 @@
                 android:gravity="center"
                 android:textSize="20dp"
                 android:text="Auto"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:onClick="onRadioButtonClicked"/>
         </RadioGroup>
 
 
