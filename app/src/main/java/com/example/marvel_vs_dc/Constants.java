@@ -2,6 +2,7 @@ package com.example.marvel_vs_dc;
 
 public class Constants {
 
+    public static final String WINNER_KEY = "WINNER_KEY";
     public static final String SCORE_KEY = "SCORE_KEY";
     public static final String NAME_KEY = "NAME_KEY";
     public static final String ID_KEY = "ID_KEY";
@@ -11,7 +12,7 @@ public class Constants {
     public static final int MODE_MANUAL = 0;
     public static final int MODE_AUTO = 1;
 
-    public static final String SP_FILE = "MY_SP";
+    public static final String SP_FILE = "MY_SP_tmp3";
 
     public static final String HEROE_SELECTED_L = "HEROE_SELECTED_L";
     public static final String HEROE_SELECTED_R = "HEROE_SELECTED_R";
@@ -21,5 +22,5 @@ public class Constants {
     public static final int RDB_MODE_MANUAL_ID = R.id.choose_RDB_manual;
 
 
-
+    public static final String TOPTEN = "TOPTEN";
 }

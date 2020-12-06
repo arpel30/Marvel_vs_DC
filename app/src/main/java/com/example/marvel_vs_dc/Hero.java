@@ -9,6 +9,7 @@ public class Hero {
     private int hp;
     private int id;
     private String name;
+    private int score;
 
     public Hero() {
     }
@@ -17,6 +18,20 @@ public class Hero {
         this.luckNumber = luckNumber;
         this.luckColor = luckColor;
         this.hp = 100;
+        this.id = id;
+        this.name = name;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public Hero(int score, int id, String name) {
+        this.score = score;
         this.id = id;
         this.name = name;
     }

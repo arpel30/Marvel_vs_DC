@@ -107,12 +107,18 @@ public class MainViewController {
         // save params & open next activity
         // if tie - winner.hp = 0, so we will give him 1 point
         gameover = true;
+//        SharedPreferences prefs = getSharedPreferences(SP_FILE, MODE_PRIVATE);
+//        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String jsonWinner = gson.toJson(won);
+
         if (won.getHp() <= 0)
             won.setHp(1);
         Intent intent = new Intent(activity, Activity_Winner.class);
-        intent.putExtra(Constants.SCORE_KEY, won.getHp());
-        intent.putExtra(Constants.ID_KEY, won.getId());
-        intent.putExtra(Constants.NAME_KEY, won.getName());
+        intent.putExtra(Constants.WINNER_KEY, jsonWinner);
+//        intent.putExtra(Constants.SCORE_KEY, won.getHp());
+//        intent.putExtra(Constants.ID_KEY, won.getId());
+//        intent.putExtra(Constants.NAME_KEY, won.getName());
         intent.putExtra(Constants.MODE, mode);
         activity.startActivity(intent);
         activity.finish();

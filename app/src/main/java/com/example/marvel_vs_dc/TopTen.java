@@ -3,9 +3,9 @@ import java.util.ArrayList;
 
 public class TopTen {
 
-    private ArrayList<Record> records = new ArrayList<>();
-
-    public TopTen() { }
+    private ArrayList<Record> records;
+    private int numRecs = 10;
+    public TopTen() { this.records = new ArrayList<>();}
 
     public TopTen(ArrayList<Record> records) {
         this.records = records;
@@ -19,12 +19,18 @@ public class TopTen {
         this.records = records;
         return this;
     }
+
+    public void newRecord(Record r){
+        records.add(r);
+        records.sort(new RecordSorter());
+        if(records.size() > numRecs){
+           records.remove(numRecs);
+        }
+    }
 }
 
 /*
-SharedPreferences prefs = getSharedPreferences(SP_FILE, MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        Gson gson = new Gson();
+
 
         TopTen topTen = generateData();
         String json = gson.toJson(topTen);

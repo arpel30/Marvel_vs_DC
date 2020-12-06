@@ -4,13 +4,13 @@ public class Record {
 
     private String name;
     private Hero hero;
-    private long date;
-    private float lon, lat;
+    private String date;
+    private double lon, lat;
 
     public Record() {
     }
 
-    public Record(String name, Hero hero, long date, float lon, float lat) {
+    public Record(String name, Hero hero, String date, double lon, double lat) {
         this.name = name;
         this.hero = hero;
         this.date = date;
@@ -26,7 +26,7 @@ public class Record {
         this.hero = hero;
     }
 
-    public void setDate(long date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -46,15 +46,15 @@ public class Record {
         return hero;
     }
 
-    public long getDate() {
+    public String getDate() {
         return date;
     }
 
-    public float getLon() {
+    public double getLon() {
         return lon;
     }
 
-    public float getLat() {
+    public double getLat() {
         return lat;
     }
 }
