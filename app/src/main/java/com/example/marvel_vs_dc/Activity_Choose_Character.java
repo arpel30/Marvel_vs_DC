@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -32,15 +33,15 @@ public class Activity_Choose_Character extends Activity_Base {
     private RadioButton modeAuto;
     private RadioButton modeManual;
 
+    private Button back;
+
     private static final int IMG_SIZE = 100;
     private MainViewController mainViewController;
     private int mode = 0; // 0 - manual, 1 - auto
 
     Hero[] heroes;
     Hero right;
-    int rightID;
     Hero left;
-    int leftID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +83,14 @@ public class Activity_Choose_Character extends Activity_Base {
             @Override
             public void onClick(View v) {
                 buttonClicked();
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Activity_Choose_Character.this, Activity_Main_Menu.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -128,8 +137,6 @@ public class Activity_Choose_Character extends Activity_Base {
         String jsonLeft = gson.toJson(left);
         String jsonRight = gson.toJson(right);
 
-//        Log.d("aaa", jsonLeft + ", " + jsonRight);
-
         Intent intent = new Intent(this, Activity_Game.class);
         intent.putExtra(Constants.HEROE_SELECTED_L, jsonLeft);
         intent.putExtra(Constants.HEROE_SELECTED_R, jsonRight);
@@ -157,6 +164,8 @@ public class Activity_Choose_Character extends Activity_Base {
         chooseMode = findViewById(R.id.choose_RDG_mode);
         modeAuto = findViewById(Constants.RDB_MODE_AUTO_ID);
         modeManual = findViewById(Constants.RDB_MODE_MANUAL_ID);
+
+        back = findViewById(R.id.choose_BTN_back);
     }
 
     public void onRadioButtonClicked(View view){

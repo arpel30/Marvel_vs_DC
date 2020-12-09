@@ -21,10 +21,11 @@ public class Activity_Game extends Activity_Base {
         // Init arraylist of cards, heroes & views
 //        mainViewController.findViews();
         mainViewController.setBundle(savedInstanceState);
-        mainViewController.bgMusic();
-        mainViewController.initHeroes();
-        mainViewController.initDeck();
-        mainViewController.initViews();
+        mainViewController.startGame();
+//        mainViewController.bgMusic();
+//        mainViewController.initHeroes();
+//        mainViewController.initDeck();
+//        mainViewController.initViews();
 
     }
 

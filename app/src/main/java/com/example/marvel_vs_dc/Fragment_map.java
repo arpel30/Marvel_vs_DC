@@ -58,7 +58,7 @@ public class Fragment_map extends Fragment implements OnMapReadyCallback {
         map = googleMap;
 
         LatLng Israel = new LatLng(31.604625, 34.939093);
-        lastMarker = map.addMarker(new MarkerOptions().position(Israel).title("Israel"));
+        lastMarker = map.addMarker(new MarkerOptions().position(Israel).title("This is Israel"));
         map.moveCamera(CameraUpdateFactory.newLatLng(Israel));
 //        map.animateCamera( CameraUpdateFactory.zoomTo( 17.0f ) );
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(Israel,7.0f));

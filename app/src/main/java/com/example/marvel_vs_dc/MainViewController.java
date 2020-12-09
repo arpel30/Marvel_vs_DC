@@ -53,7 +53,6 @@ public class MainViewController {
     private ArrayList<Card> deck;
     private boolean gameover = false;
     private boolean gameStarted = false;
-    private Random rand;
 
     final int DELAY = 1000; // 2000ms = 2 second
     final int FRACTION = 50; // 10ms - updating progress bar
@@ -67,7 +66,7 @@ public class MainViewController {
 
     public MainViewController(AppCompatActivity activity) {
         this.activity = activity;
-        
+
         mode = activity.getIntent().getIntExtra(Constants.MODE, Constants.MODE_MANUAL);
 
 
@@ -78,8 +77,30 @@ public class MainViewController {
         this.bundle = bundle;
     }
 
-    public void findViews(AppCompatActivity activity) {
+    public void startGame() {
+        if (activity instanceof Activity_Game){
+            bgMusic();
+            findViews();
+            initHeroes();
+            initDeck();
+            initViews();
+        }
+    }
 
+    public void findViews() {
+        bg_img = activity.findViewById(R.id.main_IMG_bg);
+        leftPlayer = activity.findViewById(R.id.main_IMG_leftPlayer);
+        leftScore = activity.findViewById(R.id.main_LBL_leftScore);
+        leftName = activity.findViewById(R.id.main_LBL_leftName);
+        leftCard = activity.findViewById(R.id.main_IMG_letfCard);
+        rightPlayer = activity.findViewById(R.id.main_IMG_rightPlayer);
+        rightScore = activity.findViewById(R.id.main_LBL_rightScore);
+        rightName = activity.findViewById(R.id.main_LBL_rightName);
+        rightCard = activity.findViewById(R.id.main_IMG_rightCard);
+        deal = activity.findViewById(R.id.main_IMG_button);
+        leftProg = activity.findViewById(R.id.main_PRB_left);
+        rightProg = activity.findViewById(R.id.main_PRB_right);
+        cardLoad = activity.findViewById(R.id.main_PRB_loadCard);
     }
 
     public void bgMusic() {
@@ -113,18 +134,12 @@ public class MainViewController {
         // save params & open next activity
         // if tie - winner.hp = 0, so we will give him 1 point
         gameover = true;
-//        SharedPreferences prefs = getSharedPreferences(SP_FILE, MODE_PRIVATE);
-//        SharedPreferences.Editor editor = prefs.edit();
         Gson gson = new Gson();
         String jsonWinner = gson.toJson(won);
-
         if (won.getHp() <= 0)
             won.setHp(1);
         Intent intent = new Intent(activity, Activity_Winner.class);
         intent.putExtra(Constants.WINNER_KEY, jsonWinner);
-//        intent.putExtra(Constants.SCORE_KEY, won.getHp());
-//        intent.putExtra(Constants.ID_KEY, won.getId());
-//        intent.putExtra(Constants.NAME_KEY, won.getName());
         intent.putExtra(Constants.MODE, mode);
         activity.startActivity(intent);
         activity.finish();
@@ -174,39 +189,16 @@ public class MainViewController {
 
     public void initViews() {
         // Find & init all views
-//        all = activity.findViewById(R.id.main_LAY_all);
-        bg_img = activity.findViewById(R.id.main_IMG_bg);
         setImage(activity.getResources().getIdentifier(Constants.Tekken_BG, null, activity.getPackageName()), bg_img);
-//        bg_img.setImageResource(activity.getResources().getIdentifier("@drawable/bg_tekken1", null, activity.getPackageName()));
-//        all.setBackground();
-        
-        leftPlayer = activity.findViewById(R.id.main_IMG_leftPlayer);
-        leftScore = activity.findViewById(R.id.main_LBL_leftScore);
-        leftName = activity.findViewById(R.id.main_LBL_leftName);
-        leftCard = activity.findViewById(R.id.main_IMG_letfCard);
-        rightPlayer = activity.findViewById(R.id.main_IMG_rightPlayer);
-        rightScore = activity.findViewById(R.id.main_LBL_rightScore);
-        rightName = activity.findViewById(R.id.main_LBL_rightName);
-        rightCard = activity.findViewById(R.id.main_IMG_rightCard);
-        deal = activity.findViewById(R.id.main_IMG_button);
-
-        leftProg = activity.findViewById(R.id.main_PRB_left);
-        rightProg = activity.findViewById(R.id.main_PRB_right);
-        cardLoad = activity.findViewById(R.id.main_PRB_loadCard);
-
-        this.rand = new Random();
-
         String leftFromMemory = activity.getIntent().getStringExtra(Constants.HEROE_SELECTED_L);
         String rightFromMemory = activity.getIntent().getStringExtra(Constants.HEROE_SELECTED_R);
-//        jsonFromMemory = null;
         if (leftFromMemory != null && rightFromMemory != null) {
             Gson gson = new Gson();
             leftHero = gson.fromJson(leftFromMemory, Hero.class);
             rightHero = gson.fromJson(rightFromMemory, Hero.class);
-//            Log.d("aaa", leftHero.toString() + ", " + rightHero.toString());
         } else {
-            leftHero = heroes[rand.nextInt(num_marvel) + num_dc];
-            rightHero = heroes[rand.nextInt(num_marvel)];
+            leftHero = heroes[new Random().nextInt(num_marvel) + num_dc];
+            rightHero = heroes[new Random().nextInt(num_marvel)];
         }
         rightName.setText(rightHero.getName());
         leftName.setText(leftHero.getName());
@@ -216,7 +208,6 @@ public class MainViewController {
 
         rightScore.setText(rightHero.getHp() + "");
         leftScore.setText(leftHero.getHp() + "");
-
 
         // handle button by mode selected
         if (mode == Constants.MODE_AUTO) {
@@ -230,7 +221,6 @@ public class MainViewController {
         deal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                playSound(Constants.FLIP_NAME);
                 Deal();
             }
         });
@@ -249,6 +239,7 @@ public class MainViewController {
     }
 
     private void startTimer() {
+        // Timer for card flip & loading bar
         autoGameTimer = new Timer();
         autoGameTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -273,29 +264,32 @@ public class MainViewController {
         }, 0, FRACTION);
     }
 
-    public void stopTimer(){
+    public void stopTimer() {
+        // stop & delete timer
         autoGameTimer.cancel();
         autoGameTimer = null;
     }
 
-    public void runTimer(){
-        if(autoGameTimer == null){
+    public void runTimer() {
+        // start timer (make sure it's null first)
+        if (autoGameTimer == null) {
             startTimer();
         }
     }
 
 
-
     public void onStart() {
+        // play music & run timer
         player_bg_start();
-        if(gameStarted)
+        if (gameStarted)
             runTimer();
     }
 
 
     public void onStop() {
+        // stop music & cancel timer
         player_bg_stop();
-        if(gameStarted)
+        if (gameStarted)
             stopTimer();
     }
 
@@ -304,17 +298,13 @@ public class MainViewController {
         playSound(Constants.FLIP_NAME);
 
         Card c = this.deck.remove(0);
-//        leftCard.setImageResource(c.getId());
         setImage(c.getId(), leftCard);
-        rightHero.setHp(rightHero.getHp() - leftHero.hit(c.getValue(), rand.nextInt(13), c.getColor()));
+        rightHero.setHp(rightHero.getHp() - leftHero.hit(c.getValue(), new Random().nextInt(13), c.getColor()));
 
         c = this.deck.remove(0);
-//        rightCard.setImageResource(c.getId());
         setImage(c.getId(), rightCard);
-        leftHero.setHp(leftHero.getHp() - rightHero.hit(c.getValue(), rand.nextInt(13), c.getColor()));
+        leftHero.setHp(leftHero.getHp() - rightHero.hit(c.getValue(), new Random().nextInt(13), c.getColor()));
 
-//        rightHero.setHp(rightHero.getHp()-1);
-//        leftHero.setHp(leftHero.getHp()-1);
         rightScore.setText(rightHero.getHp() + "");
         leftScore.setText(leftHero.getHp() + "");
 
@@ -338,9 +328,10 @@ public class MainViewController {
         }
 
 
-
     }
-    public void setImage ( int id, ImageView view){
+
+    public void setImage(int id, ImageView view) {
+        // set image with glide
         Glide
                 .with(activity)
                 .load(id)
