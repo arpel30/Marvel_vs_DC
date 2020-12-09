@@ -12,7 +12,7 @@ public class Constants {
     public static final int MODE_MANUAL = 0;
     public static final int MODE_AUTO = 1;
 
-    public static final String SP_FILE = "MY_SP_tmp3";
+    public static final String SP_FILE = "MY_SP_tmp8";
 
     public static final String HEROE_SELECTED_L = "HEROE_SELECTED_L";
     public static final String HEROE_SELECTED_R = "HEROE_SELECTED_R";
@@ -23,4 +23,8 @@ public class Constants {
 
 
     public static final String TOPTEN = "TOPTEN";
+    public static String Tekken_BG = "@drawable/bg_tekken1";
+
+    public static String Thunder_BG = "@drawable/bg_lightning";
+
 }

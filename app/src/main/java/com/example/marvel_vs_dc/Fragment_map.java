@@ -64,11 +64,11 @@ public class Fragment_map extends Fragment implements OnMapReadyCallback {
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(Israel,7.0f));
     }
 
-    public void showLocationOnMap(double lat, double lon) {
+    public void showLocationOnMap(double lat, double lon, String name) {
         LatLng newCor = new LatLng(lat, lon);
         if(lastMarker != null)
             lastMarker.remove();
-        lastMarker = map.addMarker(new MarkerOptions().position(newCor).title("newCor"));
+        lastMarker = map.addMarker(new MarkerOptions().position(newCor).title(name));
 //        map.moveCamera(CameraUpdateFactory.newLatLng(newCor));
         map.animateCamera(CameraUpdateFactory.newLatLng(newCor));
 

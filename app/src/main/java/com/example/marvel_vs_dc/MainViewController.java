@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -50,6 +52,7 @@ public class MainViewController {
 
     private ArrayList<Card> deck;
     private boolean gameover = false;
+    private boolean gameStarted = false;
     private Random rand;
 
     final int DELAY = 1000; // 2000ms = 2 second
@@ -59,9 +62,12 @@ public class MainViewController {
     private int timeCount = 0;
     MediaPlayer player_bg;
 
+    private LinearLayout all;
+    private ImageView bg_img;
+
     public MainViewController(AppCompatActivity activity) {
         this.activity = activity;
-
+        
         mode = activity.getIntent().getIntExtra(Constants.MODE, Constants.MODE_MANUAL);
 
 
@@ -168,6 +174,12 @@ public class MainViewController {
 
     public void initViews() {
         // Find & init all views
+//        all = activity.findViewById(R.id.main_LAY_all);
+        bg_img = activity.findViewById(R.id.main_IMG_bg);
+        setImage(activity.getResources().getIdentifier(Constants.Tekken_BG, null, activity.getPackageName()), bg_img);
+//        bg_img.setImageResource(activity.getResources().getIdentifier("@drawable/bg_tekken1", null, activity.getPackageName()));
+//        all.setBackground();
+        
         leftPlayer = activity.findViewById(R.id.main_IMG_leftPlayer);
         leftScore = activity.findViewById(R.id.main_LBL_leftScore);
         leftName = activity.findViewById(R.id.main_LBL_leftName);
@@ -230,6 +242,7 @@ public class MainViewController {
             public void onClick(View v) {
                 deal.setVisibility(View.GONE);
                 cardLoad.setVisibility(View.VISIBLE);
+                gameStarted = true;
                 startTimer();
             }
         });
@@ -250,14 +263,40 @@ public class MainViewController {
                                 timeCount = 0;
                                 Deal();
                             }
-                                cardLoad.setProgress((timeCount * 100) / DELAY);
-                                timeCount += FRACTION;
-                            }
-
+                            cardLoad.setProgress((timeCount * 100) / DELAY);
+                            timeCount += FRACTION;
                         }
+
+                    }
                 });
             }
         }, 0, FRACTION);
+    }
+
+    public void stopTimer(){
+        autoGameTimer.cancel();
+        autoGameTimer = null;
+    }
+
+    public void runTimer(){
+        if(autoGameTimer == null){
+            startTimer();
+        }
+    }
+
+
+
+    public void onStart() {
+        player_bg_start();
+        if(gameStarted)
+            runTimer();
+    }
+
+
+    public void onStop() {
+        player_bg_stop();
+        if(gameStarted)
+            stopTimer();
     }
 
     public void Deal() {
@@ -265,11 +304,13 @@ public class MainViewController {
         playSound(Constants.FLIP_NAME);
 
         Card c = this.deck.remove(0);
-        leftCard.setImageResource(c.getId());
+//        leftCard.setImageResource(c.getId());
+        setImage(c.getId(), leftCard);
         rightHero.setHp(rightHero.getHp() - leftHero.hit(c.getValue(), rand.nextInt(13), c.getColor()));
 
         c = this.deck.remove(0);
-        rightCard.setImageResource(c.getId());
+//        rightCard.setImageResource(c.getId());
+        setImage(c.getId(), rightCard);
         leftHero.setHp(leftHero.getHp() - rightHero.hit(c.getValue(), rand.nextInt(13), c.getColor()));
 
 //        rightHero.setHp(rightHero.getHp()-1);
@@ -297,11 +338,12 @@ public class MainViewController {
         }
 
 
-//    public void updateBackground(int id) {
-//        Glide
-//                .with(activity)
-//                .load(id)
-//                .into(main_IMG_background);
-//    }
+
+    }
+    public void setImage ( int id, ImageView view){
+        Glide
+                .with(activity)
+                .load(id)
+                .into(view);
     }
 }

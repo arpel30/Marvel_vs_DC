@@ -91,7 +91,7 @@ public class Activity_Winner extends Activity_Base {
         score.setText("With Score : " + score_val);
         hero.setImageResource(id);
 
-        SharedPreferences.Editor editor = prefs.edit();
+//        SharedPreferences.Editor editor = prefs.edit();
 //        double lon= new Random().nextInt(100), lat = new Random().nextInt(100);
 
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yy");
@@ -100,8 +100,8 @@ public class Activity_Winner extends Activity_Base {
         getLastLocation();
         Log.d("aaa", "after");
 //        Log.d("aaa", l.toString());
-        playerLocation.setLongitude(playerLocation.getLongitude() - new Random().nextDouble() - 0.5);
-        playerLocation.setLatitude(playerLocation.getLatitude() - new Random().nextDouble() - 0.5);
+        playerLocation.setLongitude(playerLocation.getLongitude());
+        playerLocation.setLatitude(playerLocation.getLatitude());
         // need to take name from player --------------------------------------------------
         Record r = new Record(jsonWinner.getName(), jsonWinner, date, playerLocation.getLongitude(), playerLocation.getLatitude());
         // --------------------------------------------------------------------------------
@@ -109,8 +109,9 @@ public class Activity_Winner extends Activity_Base {
         topTen.newRecord(r);
         json = gson.toJson(topTen);
         Log.d("aaa", json);
-        editor.putString(Constants.TOPTEN, json);
-        editor.commit();
+        MySPV.getInstance().putString(Constants.TOPTEN, json);
+//        editor.putString(Constants.TOPTEN, json);
+//        editor.commit();
 
         new_game.setOnClickListener(new View.OnClickListener() {
             @Override

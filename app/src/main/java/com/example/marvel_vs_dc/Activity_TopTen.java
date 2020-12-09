@@ -40,8 +40,8 @@ public class Activity_TopTen extends Activity_Base {
         }
 
         @Override
-        public void displayLocation(double lat, double lon) {
-            fragment_map.showLocationOnMap(lat, lon);
+        public void displayLocation(double lat, double lon, String name) {
+            fragment_map.showLocationOnMap(lat, lon, name);
         }
     };
 

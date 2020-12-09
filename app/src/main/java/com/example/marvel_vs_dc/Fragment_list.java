@@ -16,11 +16,14 @@ import android.widget.TextView;
 import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import static android.content.Context.MODE_PRIVATE;
 
 public class Fragment_list extends Fragment {
+
+    private ImageView bg;
 
     private View view;
     private CallBack_TopTen callBack;
@@ -59,10 +62,11 @@ public class Fragment_list extends Fragment {
     private void initRecords() {
         topTen = new TopTen();
 
-        SharedPreferences prefs = getActivity().getSharedPreferences(Constants.SP_FILE, MODE_PRIVATE);
+//        SharedPreferences prefs = getActivity().getSharedPreferences(Constants.SP_FILE, MODE_PRIVATE);
         Gson gson = new Gson();
 
-        String prefStr = prefs.getString(Constants.TOPTEN, "");
+//        String prefStr = prefs.getString(Constants.TOPTEN, "");
+        String prefStr = MySPV.getInstance().getString(Constants.TOPTEN, "");
         Log.d("aaa", "str : " + prefStr);
         if(prefStr != "")
             topTen = gson.fromJson(prefStr, TopTen.class);
@@ -74,6 +78,9 @@ public class Fragment_list extends Fragment {
     }
 
     private void initViews(View view) {
+
+        setImage(getActivity().getResources().getIdentifier(Constants.Thunder_BG, null, getActivity().getPackageName()), bg);
+
         for (int i = 0; i < topTen.getRecords().size(); i++) {
             Record r = topTen.getRecords().get(i);
             LinearLayout lay = new LinearLayout(getContext().getApplicationContext());
@@ -104,7 +111,11 @@ public class Fragment_list extends Fragment {
             place.setText((i+1)+"");
             lay.addView(place);
 
+
+            lay.setBackgroundColor(Color.parseColor("#2F33CCCC"));
+
             list_LAY_topTen.addView(lay);
+
             setListener(r, lay);
         }
         exmp_lbl.setVisibility(View.GONE);
@@ -117,7 +128,7 @@ public class Fragment_list extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.displayLocation(r.getLat(), r.getLon());
+                    callBack.displayLocation(r.getLat(), r.getLon(), r.getName());
                 }
 
             }
@@ -130,5 +141,14 @@ public class Fragment_list extends Fragment {
         exmp_lay = view.findViewById(R.id.list_LAY_exmpLay);
         exmp_lbl = view.findViewById(R.id.list_LBL_exmpLbl);
         exmp_place = view.findViewById(R.id.list_LBL_place);
+
+        bg = view.findViewById(R.id.list_IMG_bg);
+    }
+
+    public void setImage ( int id, ImageView view){
+        Glide
+                .with(getActivity())
+                .load(id)
+                .into(view);
     }
 }

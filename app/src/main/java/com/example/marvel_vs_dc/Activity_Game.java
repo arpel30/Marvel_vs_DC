@@ -31,12 +31,12 @@ public class Activity_Game extends Activity_Base {
     @Override
     protected void onStart() {
         super.onStart();
-        mainViewController.player_bg_start();
+        mainViewController.onStart();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mainViewController.player_bg_stop();
+        mainViewController.onStop();
     }
 }
