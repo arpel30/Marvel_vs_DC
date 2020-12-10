@@ -95,6 +95,15 @@ public class Activity_Main_Menu extends Activity_Base {
                 finish();
             }
         });
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Activity_Main_Menu.this, Activity_Settings.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void findViews() {

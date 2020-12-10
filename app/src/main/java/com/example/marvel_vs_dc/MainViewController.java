@@ -23,6 +23,8 @@ import java.util.TimerTask;
 
 public class MainViewController {
 
+    private Settings gameSettings;
+
     private int mode;
     private AppCompatActivity activity;
 
@@ -54,8 +56,6 @@ public class MainViewController {
     private boolean gameover = false;
     private boolean gameStarted = false;
 
-    final int DELAY = 1000; // 2000ms = 2 second
-    final int FRACTION = 50; // 10ms - updating progress bar
     private Timer autoGameTimer;
     private ProgressBar cardLoad;
     private int timeCount = 0;
@@ -68,9 +68,6 @@ public class MainViewController {
         this.activity = activity;
 
         mode = activity.getIntent().getIntExtra(Constants.MODE, Constants.MODE_MANUAL);
-
-
-//        findViews(activity);
     }
 
     public void setBundle(Bundle bundle) {
@@ -78,7 +75,8 @@ public class MainViewController {
     }
 
     public void startGame() {
-        if (activity instanceof Activity_Game){
+        if (activity instanceof Activity_Game) {
+            initSettings();
             bgMusic();
             findViews();
             initHeroes();
@@ -104,18 +102,22 @@ public class MainViewController {
     }
 
     public void bgMusic() {
-        MediaPlayer player_start = MediaPlayer.create(activity, R.raw.fight);
-        player_start.start();
-        player_bg = MediaPlayer.create(activity, R.raw.avengers_theme);
-        player_bg.setLooping(true); // Set looping
-        player_bg.setVolume(1, 1);
+        if (!gameSettings.isMute()) {
+            MediaPlayer player_start = MediaPlayer.create(activity, Constants.FIGHT_AUDIO);
+            player_start.setVolume(gameSettings.getBg_music_volume(), gameSettings.getBg_music_volume());
+            player_start.start();
+            player_bg = MediaPlayer.create(activity, Constants.BG_MUSIC);
+            player_bg.setLooping(true); // Set looping
+            player_bg.setVolume(gameSettings.getBg_music_volume(), gameSettings.getBg_music_volume());
 
-        player_bg.start();
+            player_bg.start();
+        }
     }
 
     public void playSound(String name) {
         int id = activity.getResources().getIdentifier(name, null, activity.getPackageName());
         MediaPlayer player_start = MediaPlayer.create(activity, id);
+        player_start.setVolume(gameSettings.getBg_music_volume(), gameSettings.getBg_music_volume());
         player_start.start();
     }
 
@@ -129,6 +131,11 @@ public class MainViewController {
             player_bg.pause();
     }
 
+    private void initSettings() {
+        gameSettings = new Settings();
+        gameSettings.getSettings();
+//        Log.d("aaa", "Volume : " + gameSettings.getBg_music_volume() + ", Speed : " + gameSettings.getGameSpeed() + ", isMute : " + gameSettings.isMute());
+    }
 
     private void round_over(Hero lost, Hero won) {
         // save params & open next activity
@@ -188,7 +195,7 @@ public class MainViewController {
     }
 
     public void initViews() {
-        // Find & init all views
+        // Init all views
         setImage(activity.getResources().getIdentifier(Constants.Tekken_BG, null, activity.getPackageName()), bg_img);
         String leftFromMemory = activity.getIntent().getStringExtra(Constants.HEROE_SELECTED_L);
         String rightFromMemory = activity.getIntent().getStringExtra(Constants.HEROE_SELECTED_R);
@@ -250,18 +257,18 @@ public class MainViewController {
                         if (gameover) {
                             autoGameTimer.cancel();
                         } else {
-                            if (timeCount >= DELAY) {
+                            if (timeCount >= gameSettings.getGameSpeed()) {
                                 timeCount = 0;
                                 Deal();
                             }
-                            cardLoad.setProgress((timeCount * 100) / DELAY);
-                            timeCount += FRACTION;
+                            cardLoad.setProgress((timeCount * 100) / gameSettings.getGameSpeed());
+                            timeCount += Constants.FRACTION;
                         }
 
                     }
                 });
             }
-        }, 0, FRACTION);
+        }, 0, Constants.FRACTION);
     }
 
     public void stopTimer() {
@@ -295,7 +302,8 @@ public class MainViewController {
 
     public void Deal() {
         // Deal next cards & hit
-        playSound(Constants.FLIP_NAME);
+        if(!gameSettings.isMute())
+            playSound(Constants.FLIP_NAME);
 
         Card c = this.deck.remove(0);
         setImage(c.getId(), leftCard);

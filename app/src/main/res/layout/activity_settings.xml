@@ -13,8 +13,24 @@
         android:scaleType="centerCrop"
         android:src="@drawable/bg_lightning" />
 
+    <Button
+        android:id="@+id/settings_BTN_back"
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="back"
+        android:textSize="30dp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="5dp"/>
+
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_above="@+id/settings_BTN_back"
+        android:id="@+id/settings_LAY_buttons"
+        android:layout_centerHorizontal="true"
+        android:layout_width="500dp"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
@@ -28,16 +44,164 @@
             android:text="Settings"
             android:textColor="@color/white"
             android:textSize="50dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:layout_marginBottom="10dp"/>
 
-        <SeekBar
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
-            />
+            >
 
+            <TextView
+                android:id="@+id/settings_LBL_speed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Game Speed"
+                android:textSize="30dp"
+                android:gravity="left"
+                android:textColor="@color/white"
+                android:layout_alignLeft="@+id/settings_RDG_speed"
+                />
+
+            <RadioGroup
+                android:layout_marginTop="50dp"
+                android:layout_alignTop="@+id/settings_LBL_speed"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/settings_RDG_speed"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/gray_out_line"
+                android:orientation="horizontal"
+                >
+
+                <RadioButton
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:id="@+id/settings_RDB_FAST"
+                    android:background="@drawable/toggle_widget_background"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="Fast"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:onClick="onSpeedButtonClicked"/>
+
+                <RadioButton
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:id="@+id/settings_RDB_MEDIUM"
+                    android:background="@drawable/toggle_widget_background"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="Medium"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:onClick="onSpeedButtonClicked"/>
+
+                <RadioButton
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:id="@+id/settings_RDB_SLOW"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/toggle_widget_background"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:text="Slow"
+                    android:textColor="@color/black"
+                    android:onClick="onSpeedButtonClicked"/>
+            </RadioGroup>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:id="@+id/settings_LBL_volume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Volume"
+                android:textSize="30dp"
+                android:gravity="left"
+                android:textColor="@color/white"
+                android:layout_alignLeft="@+id/settings_SBR_volume"/>
+
+            <SeekBar
+                android:id="@+id/settings_SBR_volume"
+                android:layout_marginTop="50dp"
+                android:layout_alignTop="@+id/settings_LBL_volume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+            />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+            <RadioGroup
+                android:layout_centerInParent="true"
+                android:id="@+id/settings_RDG_mute"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/gray_out_line"
+                android:orientation="horizontal"
+                >
+
+                <RadioButton
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:id="@+id/settings_RDB_NOTMUTE"
+                    android:background="@drawable/toggle_widget_background"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="NOTMUTE"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:onClick="onMuteButtonClicked"/>
+
+                <RadioButton
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:id="@+id/settings_RDB_MUTE"
+                    android:background="@drawable/toggle_widget_background"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="MUTE"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:onClick="onMuteButtonClicked"/>
+            </RadioGroup>
+
+        </RelativeLayout>
     </LinearLayout>
 
 </RelativeLayout>
