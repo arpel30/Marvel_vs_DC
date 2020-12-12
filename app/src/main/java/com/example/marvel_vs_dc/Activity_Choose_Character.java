@@ -2,9 +2,10 @@ package com.example.marvel_vs_dc;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -27,7 +28,7 @@ public class Activity_Choose_Character extends Activity_Base {
     private LinearLayout rightLinLay;
 
     private ImageView exmp;
-    private ImageView button;
+    private ImageView gameButton;
 
     private RadioGroup chooseMode;
     private RadioButton modeAuto;
@@ -38,6 +39,9 @@ public class Activity_Choose_Character extends Activity_Base {
     private static final int IMG_SIZE = 100;
     private MainViewController mainViewController;
     private int mode = 0; // 0 - manual, 1 - auto
+
+    private EditText rightPlayerName;
+    private EditText leftPlayerName;
 
     Hero[] heroes;
     Hero right;
@@ -79,10 +83,10 @@ public class Activity_Choose_Character extends Activity_Base {
             iv.setLayoutParams(exmp.getLayoutParams());
             setListener(iv, i);
         }
-        button.setOnClickListener(new View.OnClickListener() {
+        gameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonClicked();
+                startGame();
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
@@ -128,8 +132,11 @@ public class Activity_Choose_Character extends Activity_Base {
         }
     }
 
-    private void buttonClicked() {
+    private void startGame() {
         Gson gson = new Gson();
+
+        left.setPlayer(handleName(leftPlayerName.getText().toString(), left.getName()));
+        right.setPlayer(handleName(rightPlayerName.getText().toString(), right.getName()));
 
         Hero[] selected = new Hero[2];
         selected[0] = left;
@@ -138,14 +145,21 @@ public class Activity_Choose_Character extends Activity_Base {
         String jsonRight = gson.toJson(right);
 
         Intent intent = new Intent(this, Activity_Game.class);
-        intent.putExtra(Constants.HEROE_SELECTED_L, jsonLeft);
-        intent.putExtra(Constants.HEROE_SELECTED_R, jsonRight);
+        intent.putExtra(Constants.HERO_SELECTED_L, jsonLeft);
+        intent.putExtra(Constants.HERO_SELECTED_R, jsonRight);
+
         intent.putExtra(Constants.MODE, mode);
 
         this.startActivity(intent);
         this.finish();
 
 
+    }
+
+    private String handleName(String text, String name) {
+        if(text == "")
+            return name;
+        return text;
     }
 
     private void findViews() {
@@ -159,13 +173,16 @@ public class Activity_Choose_Character extends Activity_Base {
         rightPlayer = findViewById(R.id.choose_IMG_rightPlayer);
 
         exmp = findViewById(R.id.choose_IMG_exmp);
-        button = findViewById(R.id.choose_IMG_button);
+        gameButton = findViewById(R.id.choose_IMG_button);
 
         chooseMode = findViewById(R.id.choose_RDG_mode);
         modeAuto = findViewById(Constants.RDB_MODE_AUTO_ID);
         modeManual = findViewById(Constants.RDB_MODE_MANUAL_ID);
 
         back = findViewById(R.id.choose_BTN_back);
+
+        rightPlayerName = findViewById(R.id.choose_EDT_rightPlayer);
+        leftPlayerName = findViewById(R.id.choose_EDT_leftPlayer);
     }
 
     public void onRadioButtonClicked(View view){

@@ -12,11 +12,10 @@ public class Constants {
     public static final int MODE_MANUAL = 0;
     public static final int MODE_AUTO = 1;
 
-    public static final String SP_FILE = "MY_SP_tmp8";
+    public static final String SP_FILE = "MY_SP_tmp0";
 
-    public static final String HEROE_SELECTED_L = "HEROE_SELECTED_L";
-    public static final String HEROE_SELECTED_R = "HEROE_SELECTED_R";
-
+    public static final String HERO_SELECTED_L = "HEROE_SELECTED_L";
+    public static final String HERO_SELECTED_R = "HEROE_SELECTED_R";
 
     public static final int RDB_MODE_AUTO_ID = R.id.choose_RDB_auto;
     public static final int RDB_MODE_MANUAL_ID = R.id.choose_RDB_manual;

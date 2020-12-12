@@ -3,7 +3,6 @@ package com.example.marvel_vs_dc;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -63,6 +62,9 @@ public class MainViewController {
 
     private LinearLayout all;
     private ImageView bg_img;
+
+    private String leftPlayerName;
+    private String rightPlayerName;
 
     public MainViewController(AppCompatActivity activity) {
         this.activity = activity;
@@ -148,6 +150,7 @@ public class MainViewController {
         Intent intent = new Intent(activity, Activity_Winner.class);
         intent.putExtra(Constants.WINNER_KEY, jsonWinner);
         intent.putExtra(Constants.MODE, mode);
+
         activity.startActivity(intent);
         activity.finish();
     }
@@ -197,8 +200,8 @@ public class MainViewController {
     public void initViews() {
         // Init all views
         setImage(activity.getResources().getIdentifier(Constants.Tekken_BG, null, activity.getPackageName()), bg_img);
-        String leftFromMemory = activity.getIntent().getStringExtra(Constants.HEROE_SELECTED_L);
-        String rightFromMemory = activity.getIntent().getStringExtra(Constants.HEROE_SELECTED_R);
+        String leftFromMemory = activity.getIntent().getStringExtra(Constants.HERO_SELECTED_L);
+        String rightFromMemory = activity.getIntent().getStringExtra(Constants.HERO_SELECTED_R);
         if (leftFromMemory != null && rightFromMemory != null) {
             Gson gson = new Gson();
             leftHero = gson.fromJson(leftFromMemory, Hero.class);

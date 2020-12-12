@@ -113,7 +113,7 @@ public class Activity_Winner extends Activity_Base {
         playerLocation.setLongitude(playerLocation.getLongitude());
         playerLocation.setLatitude(playerLocation.getLatitude());
         // need to take name from player --------------------------------------------------
-        Record r = new Record(jsonWinner.getName(), jsonWinner, date, playerLocation.getLongitude(), playerLocation.getLatitude());
+        Record r = new Record(jsonWinner.getPlayer(), jsonWinner, date, playerLocation.getLongitude(), playerLocation.getLatitude());
         // --------------------------------------------------------------------------------
 
         topTen.newRecord(r);

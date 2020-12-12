@@ -30,20 +30,32 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:autoSizeTextType="uniform"
-           android:textSize="50dp"
-            android:layout_above="@+id/choose_HSV_left"
+            android:textSize="50dp"
+            android:layout_above="@+id/choose_EDT_leftPlayer"
             android:layout_centerHorizontal="true"
             android:text="Deadpool"
             android:gravity="center"
             android:textColor="@color/white"
             />
-
+    <EditText
+        android:id="@+id/choose_EDT_leftPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:autoSizeTextType="uniform"
+        android:textSize="30dp"
+        android:layout_above="@+id/choose_HSV_left"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:hint="Your Name"
+        android:textColorHint="@color/gray_400"
+        />
 
         <HorizontalScrollView
             android:id="@+id/choose_HSV_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="0dp"
             android:layout_alignParentBottom="true">
 
             <LinearLayout
@@ -163,18 +175,32 @@
             android:layout_height="50dp"
             android:autoSizeTextType="uniform"
             android:textSize="50dp"
-            android:layout_above="@+id/choose_HSV_right"
+            android:layout_above="@+id/choose_EDT_rightPlayer"
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="Superman"
             android:textColor="@color/white"
             />
 
+        <EditText
+            android:id="@+id/choose_EDT_rightPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:autoSizeTextType="uniform"
+            android:textSize="30dp"
+            android:layout_above="@+id/choose_HSV_right"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:hint="Your Name"
+            android:textColorHint="@color/gray_400"
+            />
+
     <HorizontalScrollView
         android:id="@+id/choose_HSV_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="0dp"
         android:layout_alignParentBottom="true">
 
         <LinearLayout

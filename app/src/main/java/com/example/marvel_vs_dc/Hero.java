@@ -10,6 +10,9 @@ public class Hero {
     private int id;
     private String name;
     private int score;
+    private String player;
+
+
 
     public Hero() {
     }
@@ -20,6 +23,14 @@ public class Hero {
         this.hp = 100;
         this.id = id;
         this.name = name;
+    }
+
+    public void setPlayer(String player) {
+        this.player = player;
+    }
+
+    public String getPlayer() {
+        return player;
     }
 
     public void setScore(int score) {
