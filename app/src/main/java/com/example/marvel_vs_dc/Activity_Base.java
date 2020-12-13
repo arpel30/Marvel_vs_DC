@@ -1,10 +1,14 @@
 package com.example.marvel_vs_dc;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
 
 public abstract class Activity_Base extends AppCompatActivity {
 
@@ -41,6 +45,14 @@ public abstract class Activity_Base extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void setImage(int id, ImageView view) {
+        // set image with glide
+        Glide
+                .with(this)
+                .load(id)
+                .into(view);
     }
 
 }

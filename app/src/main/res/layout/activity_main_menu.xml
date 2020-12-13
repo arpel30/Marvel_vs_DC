@@ -5,21 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity_Main_Menu"
-    android:background="@drawable/bg_lightning"
     >
+
+    <ImageView
+        android:id="@+id/menu_IMG_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        />
 
     <ImageView
         android:id="@+id/menu_IMG_title"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/title_red"
         android:layout_centerHorizontal="true"/>
 
     <ImageView
         android:id="@+id/menu_IMG_logo"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@mipmap/logo_avengers"
         android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"/>

@@ -25,7 +25,7 @@ public class MainViewController {
     private Settings gameSettings;
 
     private int mode;
-    private AppCompatActivity activity;
+    private Activity_Base activity;
 
     private Bundle bundle;
 
@@ -62,14 +62,15 @@ public class MainViewController {
 
     private LinearLayout all;
     private ImageView bg_img;
+    private ImageView main_IMG_title;
 
     private String leftPlayerName;
     private String rightPlayerName;
 
-    public MainViewController(AppCompatActivity activity) {
+    public MainViewController(Activity_Base activity) {
         this.activity = activity;
 
-        mode = activity.getIntent().getIntExtra(Constants.MODE, Constants.MODE_MANUAL);
+        mode = activity.getIntent().getIntExtra(Constants.MODE, Constants.MODE_AUTO);
     }
 
     public void setBundle(Bundle bundle) {
@@ -101,6 +102,7 @@ public class MainViewController {
         leftProg = activity.findViewById(R.id.main_PRB_left);
         rightProg = activity.findViewById(R.id.main_PRB_right);
         cardLoad = activity.findViewById(R.id.main_PRB_loadCard);
+        main_IMG_title = activity.findViewById(R.id.main_IMG_title);
     }
 
     public void bgMusic() {
@@ -136,7 +138,6 @@ public class MainViewController {
     private void initSettings() {
         gameSettings = new Settings();
         gameSettings.getSettings();
-//        Log.d("aaa", "Volume : " + gameSettings.getBg_music_volume() + ", Speed : " + gameSettings.getGameSpeed() + ", isMute : " + gameSettings.isMute());
     }
 
     private void round_over(Hero lost, Hero won) {
@@ -199,7 +200,14 @@ public class MainViewController {
 
     public void initViews() {
         // Init all views
-        setImage(activity.getResources().getIdentifier(Constants.Tekken_BG, null, activity.getPackageName()), bg_img);
+        activity.setImage(activity.getResources().getIdentifier(Constants.Tekken_BG, null, activity.getPackageName()), bg_img);
+
+        activity.setImage(activity.getResources().getIdentifier(Constants.FLIPPED_CARD, null, activity.getPackageName()), leftCard);
+        activity.setImage(activity.getResources().getIdentifier(Constants.FLIPPED_CARD, null, activity.getPackageName()), rightCard);
+
+        activity.setImage(activity.getResources().getIdentifier(Constants.SHIELD, null, activity.getPackageName()), deal);
+        activity.setImage(activity.getResources().getIdentifier(Constants.RED_TITLE, null, activity.getPackageName()), main_IMG_title);
+
         String leftFromMemory = activity.getIntent().getStringExtra(Constants.HERO_SELECTED_L);
         String rightFromMemory = activity.getIntent().getStringExtra(Constants.HERO_SELECTED_R);
         if (leftFromMemory != null && rightFromMemory != null) {
@@ -213,8 +221,8 @@ public class MainViewController {
         rightName.setText(rightHero.getName());
         leftName.setText(leftHero.getName());
 
-        leftPlayer.setImageResource(leftHero.getId());
-        rightPlayer.setImageResource(rightHero.getId());
+        activity.setImage(leftHero.getId(), leftPlayer);
+        activity.setImage(rightHero.getId(), rightPlayer);
 
         rightScore.setText(rightHero.getHp() + "");
         leftScore.setText(leftHero.getHp() + "");
@@ -309,11 +317,11 @@ public class MainViewController {
             playSound(Constants.FLIP_NAME);
 
         Card c = this.deck.remove(0);
-        setImage(c.getId(), leftCard);
+        activity.setImage(c.getId(), leftCard);
         rightHero.setHp(rightHero.getHp() - leftHero.hit(c.getValue(), new Random().nextInt(13), c.getColor()));
 
         c = this.deck.remove(0);
-        setImage(c.getId(), rightCard);
+        activity.setImage(c.getId(), rightCard);
         leftHero.setHp(leftHero.getHp() - rightHero.hit(c.getValue(), new Random().nextInt(13), c.getColor()));
 
         rightScore.setText(rightHero.getHp() + "");
@@ -341,11 +349,11 @@ public class MainViewController {
 
     }
 
-    public void setImage(int id, ImageView view) {
-        // set image with glide
-        Glide
-                .with(activity)
-                .load(id)
-                .into(view);
-    }
+//    public void setImage(int id, ImageView view) {
+//        // set image with glide
+//        Glide
+//                .with(activity)
+//                .load(id)
+//                .into(view);
+//    }
 }

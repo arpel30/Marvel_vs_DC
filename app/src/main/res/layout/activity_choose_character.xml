@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:background="@drawable/bg_lightning"
+<RelativeLayout
     android:orientation="horizontal"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/choose_IMG_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        />
+
+<LinearLayout
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity_Choose_Character">
@@ -24,7 +35,7 @@
             android:layout_above="@+id/choose_LBL_leftName"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:src="@drawable/deadpool"/>
+            />
         <TextView
             android:id="@+id/choose_LBL_leftName"
             android:layout_width="match_parent"
@@ -68,7 +79,6 @@
                     android:id="@+id/choose_IMG_exmp"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/thor"
                     android:layout_margin="5dp"/>
             </LinearLayout>
         </HorizontalScrollView>
@@ -86,7 +96,6 @@
             android:id="@+id/choose_IMG_button"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/shield"
             android:layout_marginBottom="0dp"
             android:layout_centerInParent="true"
             />
@@ -168,7 +177,7 @@
             android:layout_above="@+id/choose_LBL_rightName"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:src="@drawable/dc_superman"/>
+            />
         <TextView
             android:id="@+id/choose_LBL_rightName"
             android:layout_width="match_parent"
@@ -212,3 +221,4 @@
     </HorizontalScrollView>
     </RelativeLayout>
 </LinearLayout>
+</RelativeLayout>

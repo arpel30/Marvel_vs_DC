@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -33,6 +34,9 @@ public class Activity_Main_Menu extends Activity_Base {
     private Button auto;
     private Button choose;
 
+    private ImageView menu_IMG_bg;
+    private ImageView menu_IMG_title;
+    private ImageView menu_IMG_logo;
     @Override
     protected void onStart() {
         super.onStart();
@@ -67,6 +71,16 @@ public class Activity_Main_Menu extends Activity_Base {
         setContentView(R.layout.activity_main_menu);
 //        loc = LocationServices.getFusedLocationProviderClient(this);
         findViews();
+        initViews();
+
+    }
+
+    private void initViews() {
+
+        setImage(getResources().getIdentifier(Constants.Thunder_BG, null, getPackageName()), menu_IMG_bg);
+        setImage(getResources().getIdentifier(Constants.RED_TITLE, null, getPackageName()), menu_IMG_title);
+        setImage(getResources().getIdentifier(Constants.LOGO, null, getPackageName()), menu_IMG_logo);
+
         auto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,5 +125,9 @@ public class Activity_Main_Menu extends Activity_Base {
         auto = findViewById(R.id.menu_BTN_auto);
         top10 = findViewById(R.id.menu_BTN_top10);
         choose = findViewById(R.id.menu_BTN_choose);
+
+        menu_IMG_bg = findViewById(R.id.menu_IMG_bg);
+        menu_IMG_logo = findViewById(R.id.menu_IMG_logo);
+        menu_IMG_title = findViewById(R.id.menu_IMG_title);
     }
 }

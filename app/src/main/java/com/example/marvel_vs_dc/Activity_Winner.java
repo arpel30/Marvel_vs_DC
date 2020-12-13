@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 
 public class Activity_Winner extends Activity_Base {
     private ImageView hero;
+    private ImageView winner_IMG_bg;
     private TextView score;
     private TextView name;
     private Button new_game;
@@ -65,7 +66,7 @@ public class Activity_Winner extends Activity_Base {
         mode = getIntent().getIntExtra(Constants.MODE, 0);
         String json = getIntent().getStringExtra(Constants.WINNER_KEY);
         saveRecord(json);
-
+        setImage(getResources().getIdentifier(Constants.Conf_BG, null, getPackageName()), winner_IMG_bg);
         new_game.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +105,7 @@ public class Activity_Winner extends Activity_Base {
 
         name.setText(name_val + " won !");
         score.setText("With Score : " + score_val);
-        hero.setImageResource(id);
+        setImage(id, hero);
 
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yy");
         String date = format.format(System.currentTimeMillis());
@@ -112,9 +113,8 @@ public class Activity_Winner extends Activity_Base {
 
         playerLocation.setLongitude(playerLocation.getLongitude());
         playerLocation.setLatitude(playerLocation.getLatitude());
-        // need to take name from player --------------------------------------------------
+
         Record r = new Record(jsonWinner.getPlayer(), jsonWinner, date, playerLocation.getLongitude(), playerLocation.getLatitude());
-        // --------------------------------------------------------------------------------
 
         topTen.newRecord(r);
         json = gson.toJson(topTen);
@@ -129,6 +129,7 @@ public class Activity_Winner extends Activity_Base {
         new_game = findViewById(R.id.win_BTN_NewGame);
         top10 = findViewById(R.id.win_BTN_top10);
         menu = findViewById(R.id.win_BTN_menu);
+        winner_IMG_bg = findViewById(R.id.winner_IMG_bg);
     }
 
     private void getLastLocation() {

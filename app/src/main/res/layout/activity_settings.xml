@@ -7,11 +7,11 @@
     tools:context=".Activity_Settings">
 
     <ImageView
-        android:id="@+id/main_IMG_bg"
+        android:id="@+id/settings_IMG_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/bg_lightning" />
+        />
 
     <Button
         android:id="@+id/settings_BTN_back"

@@ -43,6 +43,8 @@ public class Activity_Choose_Character extends Activity_Base {
     private EditText rightPlayerName;
     private EditText leftPlayerName;
 
+    private ImageView choose_IMG_bg;
+
     Hero[] heroes;
     Hero right;
     Hero left;
@@ -67,22 +69,27 @@ public class Activity_Choose_Character extends Activity_Base {
         left = heroes[new Random().nextInt(10)+10];
         right = heroes[new Random().nextInt(10)];
 
-        rightPlayer.setImageResource(right.getId());
+//        rightPlayer.setImageResource(right.getId());
+        setImage(right.getId(), rightPlayer);
         rightName.setText(right.getName());
 
-        leftPlayer.setImageResource(left.getId());
+//        leftPlayer.setImageResource(left.getId());
+        setImage(left.getId(), leftPlayer);
         leftName.setText(left.getName());
     }
 
     private void initAll() {
         // init all characters to be chosen from & listener
+        setImage(getResources().getIdentifier(Constants.Thunder_BG, null, getPackageName()), choose_IMG_bg);
         for (int i = 0; i < heroes.length; i++) {
             ImageView iv = new ImageView(getApplicationContext());
-            iv.setImageResource(heroes[i].getId());
+//            iv.setImageResource(heroes[i].getId());
+            setImage(heroes[i].getId(), iv);
             iv.setTag(heroes[i]);
             iv.setLayoutParams(exmp.getLayoutParams());
             setListener(iv, i);
         }
+        setImage(getResources().getIdentifier(Constants.SHIELD, null, getPackageName()), gameButton);
         gameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +107,7 @@ public class Activity_Choose_Character extends Activity_Base {
     }
 
     private void setListener(ImageView iv, int i) {
-        if (i < 10) {
+        if (i < Constants.NUM_MARVEL) {
             iv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -108,7 +115,7 @@ public class Activity_Choose_Character extends Activity_Base {
                 }
             });
             rightLinLay.addView(iv);
-        } else if (i < 20) {
+        } else if (i < Constants.NUM_MARVEL + Constants.NUM_DC) {
             iv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -123,11 +130,14 @@ public class Activity_Choose_Character extends Activity_Base {
     private void heroImageClick(int team, View v) {
         if (team == 0) {
             right = (Hero) v.getTag();
-            rightPlayer.setImageResource(right.getId());
+//            rightPlayer.setImageResource(right.getId());
+
+            setImage(right.getId(), rightPlayer);
             rightName.setText(right.getName());
         } else if (team == 1) {
             left = (Hero) v.getTag();
-            leftPlayer.setImageResource(left.getId());
+//            leftPlayer.setImageResource(left.getId());
+            setImage(left.getId(), leftPlayer);
             leftName.setText(left.getName());
         }
     }
@@ -157,7 +167,7 @@ public class Activity_Choose_Character extends Activity_Base {
     }
 
     private String handleName(String text, String name) {
-        if(text == "")
+        if(text.matches(""))
             return name;
         return text;
     }
@@ -183,6 +193,8 @@ public class Activity_Choose_Character extends Activity_Base {
 
         rightPlayerName = findViewById(R.id.choose_EDT_rightPlayer);
         leftPlayerName = findViewById(R.id.choose_EDT_leftPlayer);
+
+        choose_IMG_bg = findViewById(R.id.choose_IMG_bg);
     }
 
     public void onRadioButtonClicked(View view){

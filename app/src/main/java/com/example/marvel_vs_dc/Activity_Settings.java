@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 
@@ -17,6 +18,7 @@ public class Activity_Settings extends Activity_Base {
     private Button back;
     private SeekBar settings_SBR_volume;
     private MediaPlayer player_bg;
+    private ImageView settings_IMG_bg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +52,11 @@ public class Activity_Settings extends Activity_Base {
     private void findViews() {
         back = findViewById(R.id.settings_BTN_back);
         settings_SBR_volume = findViewById(R.id.settings_SBR_volume);
+        settings_IMG_bg = findViewById(R.id.settings_IMG_bg);
     }
 
     private void initviews() {
+        setImage(getResources().getIdentifier(Constants.Thunder_BG, null, getPackageName()), settings_IMG_bg);
         settings_SBR_volume.setProgress(Math.round(settings.getBg_music_volume() * 100));
         settings_SBR_volume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -60,7 +64,8 @@ public class Activity_Settings extends Activity_Base {
                 float tmp = (float)progress/100;
 //                Log.d("aaa", "Volume : " + tmp);
                 settings.setBg_music_volume(tmp);
-                player_bg.setVolume(tmp, tmp);
+                if(!settings.isMute())
+                    player_bg.setVolume(tmp, tmp);
 
 //                Log.d("aaa", "Actual Volume : " + settings.getBg_music_volume());
             }
@@ -92,8 +97,11 @@ public class Activity_Settings extends Activity_Base {
     }
 
     public void player_bg_start() {
-        if (player_bg != null && !player_bg.isPlaying())
+        if (player_bg != null && !player_bg.isPlaying()) {
+            if(settings.isMute())
+                player_bg.setVolume(0f,0f);
             player_bg.start();
+        }
     }
 
     public void player_bg_stop() {
@@ -108,15 +116,17 @@ public class Activity_Settings extends Activity_Base {
         // Check which radio button was clicked
         switch(view.getId()) {
             case R.id.settings_RDB_NOTMUTE:
-                if (checked)
+                if (checked) {
                     settings.setMute(false);
-//                Log.d("aaa", "Not Mute");
-                break;
+                    player_bg.setVolume((float)settings_SBR_volume.getProgress()/100,(float)settings_SBR_volume.getProgress()/100);
+                }
+                    break;
             case R.id.settings_RDB_MUTE:
-                if (checked)
+                if (checked) {
                     settings.setMute(true);
-//                Log.d("aaa", "Mute");
-                break;
+                    player_bg.setVolume(0f,0f);
+                }
+                    break;
         }
     }
 
@@ -138,7 +148,6 @@ public class Activity_Settings extends Activity_Base {
                     tmp = Constants.DELAY_SLOW;
                 break;
         }
-//        Log.d("aaa", "Speed : " + tmp);
         settings.setGameSpeed(tmp);
     }
 }

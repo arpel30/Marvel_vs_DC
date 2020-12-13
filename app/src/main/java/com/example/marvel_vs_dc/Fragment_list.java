@@ -48,7 +48,6 @@ public class Fragment_list extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d("pttt", "onCreateView - Fragment_List");
 
         view = inflater.inflate(R.layout.fragment_list, container, false);
         initRecords();
@@ -62,18 +61,13 @@ public class Fragment_list extends Fragment {
     private void initRecords() {
         topTen = new TopTen();
 
-//        SharedPreferences prefs = getActivity().getSharedPreferences(Constants.SP_FILE, MODE_PRIVATE);
         Gson gson = new Gson();
 
-//        String prefStr = prefs.getString(Constants.TOPTEN, "");
         String prefStr = MySPV.getInstance().getString(Constants.TOPTEN, "");
-        Log.d("aaa", "str : " + prefStr);
         if(prefStr != "")
             topTen = gson.fromJson(prefStr, TopTen.class);
         else {
             topTen = new TopTen();
-            Log.d("aaa", topTen.getRecords()+"");
-
         }
     }
 
@@ -87,7 +81,6 @@ public class Fragment_list extends Fragment {
             lay.setLayoutParams(exmp_lay.getLayoutParams());
 
             TextView lbl = new TextView(getContext().getApplicationContext());
-//            TextView lbl = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_list, null);
             lbl.setLayoutParams(exmp_lbl.getLayoutParams());
             lbl.setTextColor(Color.WHITE);
             lbl.setTextSize(20);
@@ -96,7 +89,8 @@ public class Fragment_list extends Fragment {
             lay.addView(lbl);
 
             ImageView iv = new ImageView(getContext().getApplicationContext());
-            iv.setImageResource(r.getHero().getId());
+//            iv.setImageResource(r.getHero().getId());
+            setImage(r.getHero().getId(), iv);
             iv.setTag(r);
             iv.setLayoutParams(exmp_img.getLayoutParams());
             lay.addView(iv);

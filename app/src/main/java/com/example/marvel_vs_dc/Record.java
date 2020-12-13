@@ -11,8 +11,8 @@ public class Record {
     }
 
     public Record(String name, Hero hero, String date, double lon, double lat) {
-        this.name = "AutoPlay";
-        if(name != null){
+        this.name = hero.getName();
+        if(name != null && name != ""){
             this.name = name;
         }
         this.hero = hero;

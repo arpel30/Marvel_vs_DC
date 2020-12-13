@@ -11,7 +11,7 @@ public class Settings {
 
     public Settings() {
         this.bg_music_volume = 0.5f;
-        this.isMute = true;
+        this.isMute = false;
         this.gameSpeed = Constants.DELAY_MEDIUM;
     }
 
