@@ -1,11 +1,9 @@
-package com.example.marvel_vs_dc;
+package com.example.marvel_vs_dc.Activities;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -17,11 +15,17 @@ import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
 
+import com.example.marvel_vs_dc.Others.Constants;
+import com.example.marvel_vs_dc.Objects.Hero;
+import com.example.marvel_vs_dc.Objects.MySPV;
+import com.example.marvel_vs_dc.R;
+import com.example.marvel_vs_dc.Objects.Record;
+import com.example.marvel_vs_dc.Objects.TopTen;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class Activity_Winner extends Activity_Base {
     private ImageView hero;
@@ -44,18 +48,18 @@ public class Activity_Winner extends Activity_Base {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_winner);
-        loc = LocationServices.getFusedLocationProviderClient(this);
         findViews();
         initTopTen();
         initViews(savedInstanceState);
     }
 
     private void initTopTen() {
+        // Init TopTen from memory
         prefs = getSharedPreferences(Constants.SP_FILE, MODE_PRIVATE);
         gson = new Gson();
 
         String prefStr = prefs.getString(Constants.TOPTEN, "");
-        if(prefStr != "")
+        if (prefStr != "")
             topTen = gson.fromJson(prefStr, TopTen.class);
         else
             topTen = new TopTen();
@@ -96,7 +100,8 @@ public class Activity_Winner extends Activity_Base {
         });
     }
 
-    private void saveRecord(String json){
+    private void saveRecord(String json) {
+        // save new record
         Hero jsonWinner = gson.fromJson(json, Hero.class);
         jsonWinner.setScore(jsonWinner.getHp());
         int score_val = jsonWinner.getHp();
@@ -134,22 +139,41 @@ public class Activity_Winner extends Activity_Base {
 
     private void getLastLocation() {
         // get player location. if there is no permissions - set 0,0
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Location tmp = new Location("");
-            tmp.setLatitude(0);
-            tmp.setLongitude(0);
+            try {
+                // taking location
+                playerLocation = getLastKnownLocation();
+            } catch (Exception e) {
+                // if location is off
+                playerLocation = new Location("");
+                playerLocation.setLatitude(0);
+                playerLocation.setLongitude(0);
+            }
+            if (playerLocation == null) {
+                // in case there is no gps connection/permission
+                playerLocation = new Location("");
+                playerLocation.setLatitude(0);
+                playerLocation.setLongitude(0);
+            }
         }
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        String provider = locationManager.getBestProvider(criteria, true);
-        playerLocation = locationManager.getLastKnownLocation(provider);
 
-        if(playerLocation==null){
-            Location tmp = new Location("");
-            tmp.setLatitude(0);
-            tmp.setLongitude(0);
-            playerLocation = tmp;
+    private Location getLastKnownLocation() {
+        LocationManager mLocationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+        List<String> providers = mLocationManager.getProviders(true);
+        Location bestLocation = null;
+        for (String provider : providers) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return null;
+            }
+            Location l = mLocationManager.getLastKnownLocation(provider);
+            if (l == null) {
+                continue;
+            }
+            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                bestLocation = l;
+            }
         }
+        return bestLocation;
     }
 
     private void setLocation(Location location) {

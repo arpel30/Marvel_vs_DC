@@ -1,4 +1,4 @@
-package com.example.marvel_vs_dc;
+package com.example.marvel_vs_dc.Objects;
 import java.util.ArrayList;
 
 public class TopTen {

@@ -1,8 +1,11 @@
-package com.example.marvel_vs_dc;
+package com.example.marvel_vs_dc.Objects;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.marvel_vs_dc.Others.Constants;
+
+// class for handling Shared Preferences
 public class MySPV {
     private static MySPV instance;
     private SharedPreferences prefs;

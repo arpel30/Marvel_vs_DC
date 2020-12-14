@@ -1,4 +1,4 @@
-package com.example.marvel_vs_dc;
+package com.example.marvel_vs_dc.Others;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -9,9 +9,13 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.bumptech.glide.Glide;
+import com.example.marvel_vs_dc.Activities.Activity_Base;
+import com.example.marvel_vs_dc.Activities.Activity_Game;
+import com.example.marvel_vs_dc.Activities.Activity_Winner;
+import com.example.marvel_vs_dc.Objects.Card;
+import com.example.marvel_vs_dc.Objects.Hero;
+import com.example.marvel_vs_dc.Objects.Settings;
+import com.example.marvel_vs_dc.R;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -48,9 +52,6 @@ public class MainViewController {
     Hero leftHero;
     Hero rightHero;
 
-    private int num_marvel = 10;
-    private int num_dc = 10;
-
     private ArrayList<Card> deck;
     private boolean gameover = false;
     private boolean gameStarted = false;
@@ -78,6 +79,7 @@ public class MainViewController {
     }
 
     public void startGame() {
+        // Allow this function just for Activity_Game
         if (activity instanceof Activity_Game) {
             initSettings();
             bgMusic();
@@ -89,6 +91,7 @@ public class MainViewController {
     }
 
     public void findViews() {
+        // Find all views
         bg_img = activity.findViewById(R.id.main_IMG_bg);
         leftPlayer = activity.findViewById(R.id.main_IMG_leftPlayer);
         leftScore = activity.findViewById(R.id.main_LBL_leftScore);
@@ -106,6 +109,7 @@ public class MainViewController {
     }
 
     public void bgMusic() {
+        // Play BG music
         if (!gameSettings.isMute()) {
             MediaPlayer player_start = MediaPlayer.create(activity, Constants.FIGHT_AUDIO);
             player_start.setVolume(gameSettings.getBg_music_volume(), gameSettings.getBg_music_volume());
@@ -119,6 +123,7 @@ public class MainViewController {
     }
 
     public void playSound(String name) {
+        // Play sound by name
         int id = activity.getResources().getIdentifier(name, null, activity.getPackageName());
         MediaPlayer player_start = MediaPlayer.create(activity, id);
         player_start.setVolume(gameSettings.getBg_music_volume(), gameSettings.getBg_music_volume());
@@ -126,16 +131,19 @@ public class MainViewController {
     }
 
     public void player_bg_start() {
+        // Start BG music
         if (player_bg != null && !player_bg.isPlaying())
             player_bg.start();
     }
 
     public void player_bg_stop() {
+        // Stop BG music
         if (player_bg != null)
             player_bg.pause();
     }
 
     private void initSettings() {
+        // Init settings from memory
         gameSettings = new Settings();
         gameSettings.getSettings();
     }
@@ -168,7 +176,6 @@ public class MainViewController {
             }
         }
         Collections.shuffle(this.deck);
-
     }
 
     public Hero[] initHeroes() {
@@ -215,8 +222,8 @@ public class MainViewController {
             leftHero = gson.fromJson(leftFromMemory, Hero.class);
             rightHero = gson.fromJson(rightFromMemory, Hero.class);
         } else {
-            leftHero = heroes[new Random().nextInt(num_marvel) + num_dc];
-            rightHero = heroes[new Random().nextInt(num_marvel)];
+            leftHero = heroes[new Random().nextInt(Constants.NUM_MARVEL) + Constants.NUM_DC];
+            rightHero = heroes[new Random().nextInt(Constants.NUM_MARVEL)];
         }
         rightName.setText(rightHero.getName());
         leftName.setText(leftHero.getName());
@@ -236,6 +243,7 @@ public class MainViewController {
     }
 
     private void setManualHandler() {
+        // Handler for Manual game
         deal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -245,6 +253,7 @@ public class MainViewController {
     }
 
     private void setAutoHandler() {
+        // Handler for Auto game
         deal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -275,7 +284,6 @@ public class MainViewController {
                             cardLoad.setProgress((timeCount * 100) / gameSettings.getGameSpeed());
                             timeCount += Constants.FRACTION;
                         }
-
                     }
                 });
             }
@@ -349,11 +357,4 @@ public class MainViewController {
 
     }
 
-//    public void setImage(int id, ImageView view) {
-//        // set image with glide
-//        Glide
-//                .with(activity)
-//                .load(id)
-//                .into(view);
-//    }
 }

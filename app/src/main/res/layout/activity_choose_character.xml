@@ -18,7 +18,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity_Choose_Character">
+    tools:context=".Activities.Activity_Choose_Character">
 
     <RelativeLayout
         android:layout_margin="10dp"

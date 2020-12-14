@@ -1,6 +1,5 @@
-package com.example.marvel_vs_dc;
+package com.example.marvel_vs_dc.Activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -9,7 +8,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.marvel_vs_dc.Objects.MyScreenUtils;
 
+// Base Activity for all Activities
 public abstract class Activity_Base extends AppCompatActivity {
 
     @Override

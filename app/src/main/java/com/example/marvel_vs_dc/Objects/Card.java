@@ -1,4 +1,4 @@
-package com.example.marvel_vs_dc;
+package com.example.marvel_vs_dc.Objects;
 
 public class Card {
     private int value;

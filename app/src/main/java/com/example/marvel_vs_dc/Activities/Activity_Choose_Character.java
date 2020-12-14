@@ -1,8 +1,7 @@
-package com.example.marvel_vs_dc;
+package com.example.marvel_vs_dc.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +11,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.marvel_vs_dc.Others.Constants;
+import com.example.marvel_vs_dc.Objects.Hero;
+import com.example.marvel_vs_dc.Others.MainViewController;
+import com.example.marvel_vs_dc.R;
 import com.google.gson.Gson;
 
 import java.util.Random;
@@ -38,7 +41,7 @@ public class Activity_Choose_Character extends Activity_Base {
 
     private static final int IMG_SIZE = 100;
     private MainViewController mainViewController;
-    private int mode = 0; // 0 - manual, 1 - auto
+    private int mode = Constants.MODE_AUTO; // 0 - manual, 1 - auto
 
     private EditText rightPlayerName;
     private EditText leftPlayerName;
@@ -66,14 +69,12 @@ public class Activity_Choose_Character extends Activity_Base {
 
     private void randomInit() {
         // choose 2 random characters for start
-        left = heroes[new Random().nextInt(10)+10];
-        right = heroes[new Random().nextInt(10)];
+        left = heroes[new Random().nextInt(Constants.NUM_MARVEL)+Constants.NUM_DC];
+        right = heroes[new Random().nextInt(Constants.NUM_DC)];
 
-//        rightPlayer.setImageResource(right.getId());
         setImage(right.getId(), rightPlayer);
         rightName.setText(right.getName());
 
-//        leftPlayer.setImageResource(left.getId());
         setImage(left.getId(), leftPlayer);
         leftName.setText(left.getName());
     }
@@ -83,7 +84,6 @@ public class Activity_Choose_Character extends Activity_Base {
         setImage(getResources().getIdentifier(Constants.Thunder_BG, null, getPackageName()), choose_IMG_bg);
         for (int i = 0; i < heroes.length; i++) {
             ImageView iv = new ImageView(getApplicationContext());
-//            iv.setImageResource(heroes[i].getId());
             setImage(heroes[i].getId(), iv);
             iv.setTag(heroes[i]);
             iv.setLayoutParams(exmp.getLayoutParams());
@@ -130,13 +130,10 @@ public class Activity_Choose_Character extends Activity_Base {
     private void heroImageClick(int team, View v) {
         if (team == 0) {
             right = (Hero) v.getTag();
-//            rightPlayer.setImageResource(right.getId());
-
             setImage(right.getId(), rightPlayer);
             rightName.setText(right.getName());
         } else if (team == 1) {
             left = (Hero) v.getTag();
-//            leftPlayer.setImageResource(left.getId());
             setImage(left.getId(), leftPlayer);
             leftName.setText(left.getName());
         }
@@ -162,8 +159,6 @@ public class Activity_Choose_Character extends Activity_Base {
 
         this.startActivity(intent);
         this.finish();
-
-
     }
 
     private String handleName(String text, String name) {
@@ -211,6 +206,5 @@ public class Activity_Choose_Character extends Activity_Base {
                     mode = 0;
                     break;
         }
-//        Log.d("aaa", "Mode is " + mode);
     }
 }

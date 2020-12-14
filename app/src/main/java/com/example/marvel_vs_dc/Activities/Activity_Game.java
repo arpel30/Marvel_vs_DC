@@ -1,7 +1,10 @@
-package com.example.marvel_vs_dc;
+package com.example.marvel_vs_dc.Activities;
 
 import android.os.Bundle;
 import android.view.Window;
+
+import com.example.marvel_vs_dc.Others.MainViewController;
+import com.example.marvel_vs_dc.R;
 
 public class Activity_Game extends Activity_Base {
     private MainViewController mainViewController;

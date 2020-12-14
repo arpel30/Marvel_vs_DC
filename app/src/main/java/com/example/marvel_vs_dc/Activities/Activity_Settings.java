@@ -1,17 +1,17 @@
-package com.example.marvel_vs_dc;
+package com.example.marvel_vs_dc.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
+
+import com.example.marvel_vs_dc.Others.Constants;
+import com.example.marvel_vs_dc.R;
+import com.example.marvel_vs_dc.Objects.Settings;
 
 public class Activity_Settings extends Activity_Base {
     private Settings settings;

@@ -1,5 +1,8 @@
-package com.example.marvel_vs_dc;
+package com.example.marvel_vs_dc.Others;
 
+import com.example.marvel_vs_dc.R;
+
+// saving all the constants for the app
 public class Constants {
 
     public static final String WINNER_KEY = "WINNER_KEY";
@@ -10,7 +13,7 @@ public class Constants {
     public static final int MODE_MANUAL = 0;
     public static final int MODE_AUTO = 1;
 
-    public static final String SP_FILE = "MY_SP_tmp21";
+    public static final String SP_FILE = "MY_SP_tmp000";
 
     public static final String HERO_SELECTED_L = "HEROE_SELECTED_L";
     public static final String HERO_SELECTED_R = "HEROE_SELECTED_R";

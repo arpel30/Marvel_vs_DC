@@ -1,5 +1,6 @@
-package com.example.marvel_vs_dc;
+package com.example.marvel_vs_dc.Objects;
 
+import com.example.marvel_vs_dc.Others.Constants;
 import com.google.gson.Gson;
 
 // class for saving player settings on the device
@@ -10,6 +11,7 @@ public class Settings {
 
 
     public Settings() {
+        // default settings
         this.bg_music_volume = 0.5f;
         this.isMute = false;
         this.gameSpeed = Constants.DELAY_MEDIUM;
@@ -41,6 +43,7 @@ public class Settings {
     }
 
     public void getSettings() {
+        // get from memory
         Gson gson = new Gson();
         String json = MySPV.getInstance().getString(Constants.SETTINGS, "");
         if (json != "") {
@@ -52,6 +55,7 @@ public class Settings {
     }
 
     public void saveSettings() {
+        // save to memory
         Gson gson = new Gson();
         String json = gson.toJson(this);
         MySPV.getInstance().putString(Constants.SETTINGS, json);

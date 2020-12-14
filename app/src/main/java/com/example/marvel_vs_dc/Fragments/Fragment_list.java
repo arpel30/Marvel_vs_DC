@@ -1,9 +1,7 @@
-package com.example.marvel_vs_dc;
+package com.example.marvel_vs_dc.Fragments;
 
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +15,13 @@ import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.marvel_vs_dc.Others.CallBack_TopTen;
+import com.example.marvel_vs_dc.Others.Constants;
+import com.example.marvel_vs_dc.Objects.MySPV;
+import com.example.marvel_vs_dc.Objects.Record;
+import com.example.marvel_vs_dc.Objects.TopTen;
+import com.example.marvel_vs_dc.R;
 import com.google.gson.Gson;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class Fragment_list extends Fragment {
 
@@ -34,13 +36,12 @@ public class Fragment_list extends Fragment {
     private LinearLayout list_LAY_topTen;
 
     private TopTen topTen;
+
+    // example views for using their design
     private LinearLayout exmp_lay;
     private TextView exmp_lbl;
     private TextView exmp_place;
     private ImageView exmp_img;
-
-//    private GoogleMap map;
-//    private FusedLocationProviderClient
 
     public void setCallBack(CallBack_TopTen _callBack) {
         this.callBack = _callBack;
@@ -53,12 +54,11 @@ public class Fragment_list extends Fragment {
         initRecords();
         findViews(view);
         initViews(view);
-
-
         return view;
     }
 
     private void initRecords() {
+        // read topten from memory
         topTen = new TopTen();
 
         Gson gson = new Gson();
@@ -72,9 +72,10 @@ public class Fragment_list extends Fragment {
     }
 
     private void initViews(View view) {
-
+        // init views
         setImage(getActivity().getResources().getIdentifier(Constants.Thunder_BG, null, getActivity().getPackageName()), bg);
 
+        // init topten list dynamically
         for (int i = 0; i < topTen.getRecords().size(); i++) {
             Record r = topTen.getRecords().get(i);
             LinearLayout lay = new LinearLayout(getContext().getApplicationContext());
@@ -89,7 +90,6 @@ public class Fragment_list extends Fragment {
             lay.addView(lbl);
 
             ImageView iv = new ImageView(getContext().getApplicationContext());
-//            iv.setImageResource(r.getHero().getId());
             setImage(r.getHero().getId(), iv);
             iv.setTag(r);
             iv.setLayoutParams(exmp_img.getLayoutParams());
@@ -112,6 +112,7 @@ public class Fragment_list extends Fragment {
 
             setListener(r, lay);
         }
+        // remove examples
         exmp_lbl.setVisibility(View.GONE);
         exmp_img.setVisibility(View.GONE);
         exmp_lay.setVisibility(View.GONE);
